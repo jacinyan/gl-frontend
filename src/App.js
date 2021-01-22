@@ -1,9 +1,14 @@
+import Home from "./pages/Home";
+import Header from "./components/Header";
+import Footer from './components/Footer';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      Hello React
-    </div>
+    <>
+      <Header />
+      <Home />
+      <Footer />
+    </>
   );
 }
 
