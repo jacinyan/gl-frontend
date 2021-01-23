@@ -1,9 +1,11 @@
 import { Container } from "react-bootstrap";
-import Header from "./components/Header";
+import { Link, Switch, Redirect, Route } from 'react-router-dom';
+import Header from "./common/Header";
 import Home from "./pages/Home";
-import Footer from './components/Footer';
+import Properties from './pages/Properties';
+import Footer from './common/Footer';
 
-import Test from './components/Test';
+import Test from './common/Test';
 
 const App = () => {
   return (
@@ -11,8 +13,12 @@ const App = () => {
       <Header />
       <main>
         <Container>
-          <Home />
-          <Test />
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route path='/properties' component={Properties}/>
+            <Redirect to='/'/>
+          </Switch>
+          {/* <Test /> */}
         </Container>
       </main>
       <Footer />
