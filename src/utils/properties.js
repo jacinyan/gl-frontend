@@ -1,6 +1,6 @@
 
 export const properties = [
-	{	category: 'Corporate' }, 
-	{   category: 'Birthday'}, 
-	{	category: 'Wedding'}
+	{	category: 'corporate' }, 
+	{   category: 'birthday'}, 
+	{	category: 'wedding'}
 ]

@@ -3,7 +3,9 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import Property from './Property';
+import Wedding from './Wedding';
+import Birthday from './Birthday';
+import Corporate from './Corporate';
 
 const Properties = () => {
     return (
@@ -27,10 +29,10 @@ const Properties = () => {
                 </Nav.Item>
             </Nav>
             <Switch>
-                {/* <Route path='/properties/corporate' component={Property}></Route>
-                <Route path='/properties/birthday' component={Property}></Route> */}
-                <Route path='/properties/wedding' component={Property} />
-                {/* <Redirect to='/properties/corporate' /> */}
+                <Route path='/properties/corporate' component={Corporate} />
+                <Route path='/properties/birthday' component={Birthday} />
+                <Route path='/properties/wedding' component={Wedding} />
+                <Redirect to='/properties/corporate' />
             </Switch>
         </div>
     )

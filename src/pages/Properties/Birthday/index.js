@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { Link, Route } from "react-router-dom";
-import Detail from "./Detail";
+import Detail from "../_shared/detail";
 
-const Property = () => {
+const Birthday = () => {
     // dummy initial state
     const initialState = {
         propertyArr: [
-            { id: '01', title: 'weddingOne' },
-            { id: '02', title: 'weddingTwo'},
-            { id: '03', title: 'weddingThree'}
+            { id: '01', title: 'birthdayOne' },
+            { id: '02', title: 'birthdayTwo'},
+
         ]
     }
 
@@ -23,15 +23,15 @@ const Property = () => {
                     propertyArr.map((propObj) => {
                         return (
                             <li key={propObj.id}>
-                                <Link to={`/properties/wedding/?id=${propObj.id}&title=${propObj.title}`}>{propObj.title}</Link>&nbsp;&nbsp;
+                                <Link to={`/properties/birthday/?id=${propObj.id}&title=${propObj.title}`}>{propObj.title}</Link>&nbsp;&nbsp;
                             </li>
                         )
                     })
                 }
             </ul>
-            <Route path="/properties/wedding" component={Detail} />
+            <Route path="/properties/birthday" render={(props) => <Detail {...props}/>} />
         </>
     )
 }
 
-export default Property
+export default Birthday
