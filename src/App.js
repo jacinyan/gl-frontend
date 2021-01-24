@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap";
 import { Link, Switch, Redirect, Route } from 'react-router-dom';
 import Header from "./common/Header";
 import Home from "./pages/Home";
-import Properties from './pages/Properties';
+import Properties from './pages/Properties/PropertiesScreen';
 import Footer from './common/Footer';
 
 import Test from './common/Test';
