@@ -23,13 +23,13 @@ const Corporate = () => {
                     propertyArr.map((propObj) => {
                         return (
                             <li key={propObj.id}>
-                                <Link to={`/properties/corporate/?id=${propObj.id}&title=${propObj.title}`}>{propObj.title}</Link>&nbsp;&nbsp;
+                                <Link to={`/properties/corporate/${propObj.id}`}>{propObj.title}</Link>&nbsp;&nbsp;
                             </li>
                         )
                     })
                 }
             </ul>
-            <Route path="/properties/corporate" render={(props) => <Detail {...props}/>} />
+            <Route path="/properties/corporate/:id" render={(props) => <Detail {...props}/>} />
         </>
     )
 }

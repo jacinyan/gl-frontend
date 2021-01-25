@@ -26,13 +26,13 @@ const Wedding = () => {
                     propertyArr.map((propObj) => {
                         return (
                             <li key={propObj.id}>
-                                <Link to={`/properties/wedding/?id=${propObj.id}&title=${propObj.title}`}>{propObj.title}</Link>&nbsp;&nbsp;
+                                <Link to={`/properties/wedding/${propObj.id}`}>{propObj.title}</Link>&nbsp;&nbsp;
                             </li>
                         )
                     })
                 }
             </ul>
-            <Route path="/properties/wedding" render={(props) => <Detail {...props} />} />
+            <Route path="/properties/wedding/:id" render={(props) => <Detail {...props} />} />
         </>
     )
 }
