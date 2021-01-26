@@ -4,8 +4,10 @@ export default class Test extends Component {
 
     state = {
         title: '',
-        body: '',
-        featured_image: null
+        description: '',
+        featured_image: null,
+        category_id: null,
+        rate: null
     }
 
     handleChange = (event) => {
@@ -20,34 +22,45 @@ export default class Test extends Component {
         event.preventDefault();
         const formData = new FormData();
         formData.append('title', this.state.title);
-        formData.append('body', this.state.body);
+        formData.append('description', this.state.description);
         formData.append('featured_image', this.state.featured_image);
+        formData.append('category_id', this.state.category_id)
+        formData.append('rate', this.state.rate)
 
-        await fetch('http://localhost:3000/posts', {
+        await fetch('http://localhost:3000/properties', {
             method: 'POST',
             body: formData
         })
             .catch(error => console.log(error))
 
-        const response = await fetch('http://localhost:3000/posts')
+        const response = await fetch('http://localhost:3000/properties')
         const data = await response.json();
         console.log(data);
 
         this.input1.value = ''
+        this.input2.value = ''
+        this.input3.value = null
+        this.input4.value = null
     };
 
     render() {
         return (
             <>
-                {/* figuring out how to display uploaded image */}
-               
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" name="title" placeholder="please type in the title" ref={currNode => this.input1 = currNode} onChange={this.handleChange} />
+                    <input type="text" name="description" placeholder="please type in the description" ref={currNode => this.input2 = currNode} onChange={this.handleChange} />
+
+                    <select name="category_id" ref={currNode => this.input3 = currNode} onChange={this.handleChange}>
+                        <option value={1}>Birthday</option>
+                        <option value={2}>Corporate</option>
+                        <option value={3}>Wedding</option>
+                    </select>
+
+                    <input type="text" name="rate" placeholder="please set the rate" ref={currNode => this.input4 = currNode} onChange={this.handleChange} />
+
                     <input type="file" accept="image/*" multiple={false} onChange={this.onImageChange} />
                     <button>press me</button>
                 </form>
-
-                 {/* <img src={this.props.post.featured_image} alt=""/> */}
             </>
         )
     }
