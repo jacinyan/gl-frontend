@@ -8,17 +8,23 @@ const DetailData = [
 
 
 const Detail = (props) => {
-    const {id, title} = props.match.params
-    const matchedResult = DetailData.find(detailObj =>  detailObj.id === id)
+
+    // console.log(props)
+
+    // search
+    // const {id, title} = props.match.params
+
+    //state
+    const {id, title} = props.location.state || {}
+
+    const matchedResult = DetailData.find(detailObj =>  detailObj.id === id) || {}
  
-    return ( matchedResult? 
+    return ( 
         <ul>
             <li>ID:{id}</li>
             <li>Title:{title}</li>
             <li>Content:{matchedResult.content}</li>
         </ul>
-        :
-        ''
     )
 }
 

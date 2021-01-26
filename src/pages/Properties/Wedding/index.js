@@ -26,13 +26,21 @@ const Wedding = () => {
                     propertyArr.map((propObj) => {
                         return (
                             <li key={propObj.id}>
-                                <Link to={`/properties/wedding/${propObj.id}`}>{propObj.title}</Link>&nbsp;&nbsp;
+                                {/* search */}
+                                {/* <Link to={`/properties/wedding/${propObj.id}`}>{propObj.title}</Link>&nbsp;&nbsp; */}
+
+                                {/* state */}
+                                <Link to={{pathname:'/properties/wedding/detail', state:{id: propObj.id, title: propObj.title} }}>{propObj.title}</Link>&nbsp;&nbsp;
                             </li>
                         )
                     })
                 }
             </ul>
-            <Route path="/properties/wedding/:id" render={(props) => <Detail {...props} />} />
+            {/* search */}
+            {/* <Route path="/properties/wedding/:id" render={(props) => <Detail {...props} />} /> */}
+
+            {/* state */}
+            <Route path="/properties/wedding/detail" render={(props) => <Detail {...props} />} />
         </>
     )
 }

@@ -23,13 +23,16 @@ const Corporate = () => {
                     propertyArr.map((propObj) => {
                         return (
                             <li key={propObj.id}>
-                                <Link to={`/properties/corporate/${propObj.id}`}>{propObj.title}</Link>&nbsp;&nbsp;
+                                {/* <Link to={`/properties/corporate/${propObj.id}`}>{propObj.title}</Link>&nbsp;&nbsp; */}
+
+                                {/* state */}
+                                <Link to={{pathname:'/properties/corporate/detail', state:{id: propObj.id, title: propObj.title} }}>{propObj.title}</Link>&nbsp;&nbsp;
                             </li>
                         )
                     })
                 }
             </ul>
-            <Route path="/properties/corporate/:id" render={(props) => <Detail {...props}/>} />
+            <Route path="/properties/corporate/detail" render={(props) => <Detail {...props}/>} />
         </>
     )
 }
