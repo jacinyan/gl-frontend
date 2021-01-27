@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, Route } from "react-router-dom";
 import { Card, Col } from "react-bootstrap";
 import Detail from "../_shared/detail";

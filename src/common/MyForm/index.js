@@ -15,7 +15,7 @@ const MyForm = () => {
   };
   return (
     <div className="layout">
-      <h1>My Event Form</h1>
+      <h3>Pick a Time</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-section">
           <label htmlFor="title" className="form-label">
@@ -41,15 +41,17 @@ const MyForm = () => {
                 timeFormat="HH:mm"
                 timeIntervals={15}
                 timeCaption="time"
-                dateFormat="MMMM d, yyyy h:mm aa"
+                dateFormat="dd/MM/yyyy, h:mm aa"
                 minDate={new Date()}
-                minTime={setHours(setMinutes(new Date(), 0), 17)}
-                maxTime={setHours(setMinutes(new Date(), 30), 20)}
+                minTime={setHours(setMinutes(new Date(), 0), 6)}
+                maxTime={setHours(setMinutes(new Date(), 30), 23)}
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
                 className="red-border"
                 isClearable
+                shouldCloseOnSelect={false}
+                todayButton="Today"
               />
             }
             name="startDate"
@@ -70,15 +72,17 @@ const MyForm = () => {
                 timeFormat="HH:mm"
                 timeIntervals={15}
                 timeCaption="time"
-                dateFormat="MMMM d, yyyy h:mm aa"
+                dateFormat="dd/MM/yyyy, h:mm aa"
                 minDate={startDate}
-                minTime={setHours(setMinutes(new Date(), 0), 17)}
-                maxTime={setHours(setMinutes(new Date(), 30), 20)}
+                minTime={startDate}
+                maxTime={setHours(setMinutes(new Date(), 30), 23)}
                 selectsEnd
                 startDate={startDate}
                 endDate={endDate}
                 className="red-border"
                 isClearable
+                shouldCloseOnSelect={false}
+                todayButton="Today"
               />
             }
             name="endDate"
