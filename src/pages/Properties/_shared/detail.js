@@ -8,7 +8,7 @@ const Detail = props => {
 
     const { id, title, category_id, featured_image } = props.location.state || {}
 
-    console.log(id, title, category_id, featured_image)
+    // console.log(id, title, category_id, featured_image)
 
     const category = () => category_id === 1 ? 'birthday' : category_id === 2 ? 'corporate' : 'wedding'
 
