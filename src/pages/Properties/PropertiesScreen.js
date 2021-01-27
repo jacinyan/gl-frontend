@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Redirect, Route } from 'react-router-dom';
-import { Nav } from 'react-bootstrap';
+import { Nav, Row, Col, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import Wedding from './Wedding';
@@ -28,12 +28,16 @@ const Properties = () => {
                     </LinkContainer>
                 </Nav.Item>
             </Nav>
-            <Switch>
-                <Route path='/properties/corporate' component={Corporate} />
-                <Route path='/properties/birthday' component={Birthday} />
-                <Route path='/properties/wedding' component={Wedding} />
-                <Redirect to='/properties/corporate' />
-            </Switch>
+            <Container>
+                <Row>
+                    <Switch>
+                        <Route path='/properties/corporate' component={Corporate} />
+                        <Route path='/properties/birthday' component={Birthday} />
+                        <Route path='/properties/wedding' component={Wedding} />
+                        <Redirect to='/properties/corporate' />
+                    </Switch>
+                </Row>
+            </Container>
         </div>
     )
 }

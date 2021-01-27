@@ -1,29 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
-
-// dummy data
-const DetailData = [
-    { id: '01', content: "content1" },
-    { id: '02', content: "content2" },
-    { id: '03', content: "content3" }
-]
+import { Card, Col } from "react-bootstrap";
 
 
 const Detail = props => {
 
-    const { id, title, category_id } = props.location.state || {}
 
-    const matchedResult = DetailData.find(detailObj => detailObj.id === id) || {}
-    
+    const { id, title, category_id, featured_image } = props.location.state || {}
+
+    console.log(id, title, category_id, featured_image)
+
     const category = () => category_id === 1 ? 'birthday' : category_id === 2 ? 'corporate' : 'wedding'
-    
+
+
     return (
         <>
             <Link className='btn btn-light my-3' to={`/properties/${category()}`}>Go Back</Link>
             <ul>
                 <li>ID:{id}</li>
                 <li>Title:{title}</li>
-                <li>Content:{matchedResult.content}</li>
+                <li>Image:<img src={featured_image}/></li>
             </ul>
             {/* <Row>
                 <Col md={6}>

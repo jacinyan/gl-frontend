@@ -44,7 +44,7 @@ const MyForm = () => {
             }
             name="startDate"
             control={control}
-              
+            selected={startDate}
             defaultValue=""
           />
         </div>
