@@ -1,11 +1,13 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
 import "react-datepicker/dist/react-datepicker.css";
 
 const MyForm = () => {
   const { handleSubmit, register, watch, control } = useForm();
-  const { startDate, endDate } = watch(["startDate", "endDate"]);
+  const { startDate, endDate} = watch(["startDate", "endDate"]);
   const [submittedData, setSubmittedData] = React.useState({});
 
   const onSubmit = (data) => {
@@ -36,16 +38,24 @@ const MyForm = () => {
               <DatePicker
                 id="startDate"
                 showTimeSelect
-                dateFormat="Pp"
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                timeCaption="time"
+                dateFormat="MMMM d, yyyy h:mm aa"
+                minDate={new Date()}
+                minTime={setHours(setMinutes(new Date(), 0), 17)}
+                maxTime={setHours(setMinutes(new Date(), 30), 20)}
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
+                className="red-border"
+                isClearable
               />
             }
             name="startDate"
             control={control}
             selected={startDate}
-            defaultValue=""
+            defaultValue=''
           />
         </div>
         <div className="form-section">
@@ -57,10 +67,18 @@ const MyForm = () => {
               <DatePicker
                 id="endDate"
                 showTimeSelect
-                dateFormat="Pp"
-                selectsStart
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                timeCaption="time"
+                dateFormat="MMMM d, yyyy h:mm aa"
+                minDate={startDate}
+                minTime={setHours(setMinutes(new Date(), 0), 17)}
+                maxTime={setHours(setMinutes(new Date(), 30), 20)}
+                selectsEnd
                 startDate={startDate}
                 endDate={endDate}
+                className="red-border"
+                isClearable
               />
             }
             name="endDate"
