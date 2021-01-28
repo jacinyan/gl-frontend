@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import { Link, Route } from "react-router-dom";
 import { Card, Col } from "react-bootstrap";
 import Detail from "../_shared/detail";
+import propertyReducer from '../../../utils/reducers/propertyReducer'
+
+
+const initialState = {
+    loading: false,
+    error: '',
+    properties: []
+}
 
 const Birthday = (props) => {
 
-    const [property, setProperty] = useState([])
+    const [state, dispatch] = useReducer(propertyReducer, initialState)
 
     useEffect(() => {
         // console.log('useEffect gets called');
@@ -16,12 +24,12 @@ const Birthday = (props) => {
                 const data = await response.json()
                 // console.log(data)
                 const birthday = data.filter((item) => {
+                    // console.log(item);
                     return item.category_id === 1
                 })
-
-                setProperty(birthday)
+                dispatch({type: 'PROPERTIES_LIST_REQUEST_SUCCESS', payload: birthday})
             } catch (error) {
-                console.log(error);
+                dispatch({type: 'PROPERTIES_LIST_REQUEST_FAIL', payload: error.message});
             }
 
         }
@@ -33,7 +41,7 @@ const Birthday = (props) => {
         <>
             {
                 props.location.state === undefined ?
-                    property.map((propObj) => {
+                    state.properties.map((propObj) => {
                         return (
                             <Col sm={12} md={6} lg={4} xl={3} key={propObj.id}>
                                 <Card className='my-3 p-3 rounded' >
