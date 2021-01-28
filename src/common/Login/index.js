@@ -1,36 +1,36 @@
-import React,{useState, useCallback} from 'react'
+// import React,{useState, useCallback} from 'react'
 
-const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+// const Login = () => {
+//     const [username, setUsername] = useState("");
+//     const [password, setPassword] = useState("");
   
-    const submit = useCallback(() => {
-      loginService.login({
-        username,
-        password,
-      });
-    }, [username, password]);
+//     const submit = useCallback(() => {
+//       loginService.login({
+//         username,
+//         password,
+//       });
+//     }, [username, password]);
   
-    return (
-      <div className="login-form">
-        <input
-          placeholder="username"
-          value={username}
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
-        />
-        <input
-          placeholder="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
+//     return (
+//       <div className="login-form">
+//         <input
+//           placeholder="username"
+//           value={username}
+//           onChange={(e) => {
+//             setUsername(e.target.value);
+//           }}
+//         />
+//         <input
+//           placeholder="password"
+//           value={password}
+//           onChange={(e) => {
+//             setPassword(e.target.value);
+//           }}
+//         />
         
-        <button onClick={submit}>Submit</button>
-      </div>
-    );
-  };
+//         <button onClick={submit}>Submit</button>
+//       </div>
+//     );
+//   };
   
-  export default Login
+//   export default Login
