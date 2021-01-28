@@ -1,12 +1,7 @@
-import {PROPERTIES_LIST_REQUEST, PROPERTIES_LIST_REQUEST_SUCCESS, PROPERTIES_LIST_REQUEST_FAIL} from './constants/propertyConstants'
+import {PROPERTIES_LIST_REQUEST_SUCCESS, PROPERTIES_LIST_REQUEST_FAIL} from './constants/propertyConstants'
 
 export default function propertyReducer (state, action) {
 	switch(action.type) {
-		case PROPERTIES_LIST_REQUEST:
-			return {
-				...state,
-				loading: true, 
-				properties:[]}
 		case PROPERTIES_LIST_REQUEST_SUCCESS:
 			return {
 				...state,

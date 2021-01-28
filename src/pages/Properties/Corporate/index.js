@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { Link, Route } from "react-router-dom";
 import { Card, Col } from "react-bootstrap";
 import Detail from "../_shared/detail";
@@ -6,7 +6,7 @@ import propertyReducer from '../../../utils/reducers/propertyReducer'
 
 
 const initialState = {
-    loading: false,
+    loading: true,
     error: '',
     properties: []
 }
@@ -39,7 +39,9 @@ const Corporate = (props) => {
 
     return (
         <>
-            {
+            {   
+                state.loading ? <h2>Loading...</h2>
+                :
                 props.location.state === undefined ?
                     state.properties.map((propObj) => {
                         return (

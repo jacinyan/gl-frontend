@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Redirect, Route } from 'react-router-dom';
-import { Nav, Row, Col, Container } from 'react-bootstrap';
+import { Nav, Row, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import Wedding from './Wedding';

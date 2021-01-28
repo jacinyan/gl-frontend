@@ -6,7 +6,7 @@ import propertyReducer from '../../../utils/reducers/propertyReducer'
 
 
 const initialState = {
-    loading: false,
+    loading: true,
     error: '',
     properties: []
 }
@@ -39,7 +39,9 @@ const Birthday = (props) => {
 
     return (
         <>
-            {
+            {   
+                state.loading ? <h2>Loading...</h2>
+                :
                 props.location.state === undefined ?
                     state.properties.map((propObj) => {
                         return (
