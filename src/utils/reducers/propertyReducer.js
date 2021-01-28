@@ -8,7 +8,7 @@ export default function propertyReducer (state = {properties: []}, action) {
 			return {loading: false, properties: action.payload}
 		case PROPERTIES_REQUEST_FAIL:
 			return {loading: false, error: action.payload}
-			
+			// 
 		// case 'addproperty': {
 		// 	return {
 		// 		...state,
