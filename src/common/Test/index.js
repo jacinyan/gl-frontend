@@ -6,8 +6,8 @@ export default class Test extends Component {
         title: '',
         description: '',
         featured_image: null,
-        category_id: null,
-        rate: null
+        category_id: 1,
+        rate: 0.0
     }
 
     handleChange = (event) => {
@@ -39,8 +39,8 @@ export default class Test extends Component {
 
         this.input1.value = ''
         this.input2.value = ''
-        this.input3.value = null
-        this.input4.value = null
+        this.input3.value = 1
+        this.input4.value = 0.0
     };
 
     render() {

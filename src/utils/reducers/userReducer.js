@@ -1,4 +1,4 @@
-import {PROPERTIES_LIST_REQUEST_SUCCESS, PROPERTIES_LIST_REQUEST_FAIL} from '../constants/propertyConstants'
+import {PROPERTIES_LIST_REQUEST_SUCCESS, PROPERTIES_LIST_REQUEST_FAIL} from '../constants/userConstants'
 
 export default function propertyReducer (state, action) {
 	switch(action.type) {
