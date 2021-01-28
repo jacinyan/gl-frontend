@@ -8,7 +8,7 @@ const Wedding = (props) => {
     const [property, setProperty] = useState([])
 
     useEffect(() => {
-        console.log('useEffect gets called');
+        // console.log('useEffect gets called');
         const fetchProperty = async () => {
 
             try {
@@ -30,7 +30,7 @@ const Wedding = (props) => {
         fetchProperty()
     }, [])
 
-    console.log(props);
+    // console.log(props);
 
     return (
         <>
@@ -43,7 +43,7 @@ const Wedding = (props) => {
                                     <Link to={{ pathname: '/properties/wedding/detail', state: { id: propObj.id, title: propObj.title, category_id: propObj.category_id, featured_image: `${propObj.featured_image}` } }} >
                                         <Card.Img src={`${propObj.featured_image}`} variant='top' />
                                     </Link>&nbsp;&nbsp;
-                            <Card.Body>
+                                    <Card.Body>
                                         <Link to={{ pathname: '/properties/wedding/detail', state: { id: propObj.id, title: propObj.title, category_id: propObj.category_id, featured_image: `${propObj.featured_image}` } }} >
                                             <Card.Title as='div'>
                                                 <strong>

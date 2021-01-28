@@ -8,16 +8,22 @@ const Birthday = (props) => {
     const [property, setProperty] = useState([])
 
     useEffect(() => {
-        console.log('useEffect gets called');
+        // console.log('useEffect gets called');
         const fetchProperty = async () => {
-            const response = await fetch('http://localhost:3000/properties')
-            const data = await response.json()
-            // console.log(data)
-            const birthday = data.filter((item) => {
-                return item.category_id === 1
-            })
 
-            setProperty(birthday)
+            try {
+                const response = await fetch('http://localhost:3000/properties')
+                const data = await response.json()
+                // console.log(data)
+                const birthday = data.filter((item) => {
+                    return item.category_id === 1
+                })
+
+                setProperty(birthday)
+            } catch (error) {
+                console.log(error);
+            }
+
         }
 
         fetchProperty()
@@ -34,7 +40,7 @@ const Birthday = (props) => {
                                     <Link to={{ pathname: '/properties/birthday/detail', state: { id: propObj.id, title: propObj.title, category_id: propObj.category_id, featured_image: `${propObj.featured_image}` } }} >
                                         <Card.Img src={`${propObj.featured_image}`} variant='top' />
                                     </Link>&nbsp;&nbsp;
-                            <Card.Body>
+                                    <Card.Body>
                                         <Link to={{ pathname: '/properties/birthday/detail', state: { id: propObj.id, title: propObj.title, category_id: propObj.category_id, featured_image: `${propObj.featured_image}` } }} >
                                             <Card.Title as='div'>
                                                 <strong>

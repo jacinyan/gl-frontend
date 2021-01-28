@@ -21,8 +21,8 @@ const Header = () => {
                             <LinkContainer to="/properties">
                                 <Nav.Link>Properties</Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to="/sign_in">
-                                <Nav.Link><i className='fas fa-user'></i>Sign In</Nav.Link>
+                            <LinkContainer to="/login">
+                                <Nav.Link><i className='fas fa-user'></i>Login In</Nav.Link>
                             </LinkContainer>
                         </Nav>
                     </Navbar.Collapse>
