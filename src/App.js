@@ -4,6 +4,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 import Header from "./common/Header";
 import Home from "./pages/Home";
 import PropertiesScreen from './pages/Properties/PropertiesScreen';
+import Login from './pages/Login'
 import Footer from './common/Footer';
 
 
@@ -14,9 +15,10 @@ const App = () => {
       <main className='py-3'>
         <Container>
           <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route path='/properties' component={PropertiesScreen}/>
-            <Redirect to='/'/>
+            <Route exact path='/' component={Home} />
+            <Route path='/properties' component={PropertiesScreen} />
+            <Route path='/login' component={Login} />
+            <Redirect to='/' />
           </Switch>
         </Container>
       </main>

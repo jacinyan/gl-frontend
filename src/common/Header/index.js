@@ -1,8 +1,7 @@
 import React from 'react';
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
-import Login from '../Login'
-import SignUp from '../SignUp';
+
 
 const Header = () => {
     return (
@@ -22,7 +21,7 @@ const Header = () => {
                                 <Nav.Link>Properties</Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/login">
-                                <Nav.Link><i className='fas fa-user'></i>Login In</Nav.Link>
+                                <Nav.Link><i className='fas fa-user'></i>Login</Nav.Link>
                             </LinkContainer>
                         </Nav>
                     </Navbar.Collapse>
