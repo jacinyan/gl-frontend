@@ -7,7 +7,7 @@ const Detail = props => {
 
     const { title, category_id, featured_image, rate, description } = props.location.state || {}
 
-    console.log(props)
+    // console.log(props)
 
     const category = () => category_id === 1 ? 'birthday' : category_id === 2 ? 'corporate' : 'wedding'
 
