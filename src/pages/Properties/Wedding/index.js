@@ -4,6 +4,8 @@ import { Card, Col } from "react-bootstrap";
 import Detail from "../_shared/detail";
 import propertyReducer from '../../../utils/reducers/propertyReducer'
 
+import {getProperties} from '../../../services/propertyServices'
+
 const initialState = {
     loading: true,
     error: '',
@@ -15,25 +17,13 @@ const Wedding = (props) => {
     const [state, dispatch] = useReducer(propertyReducer, initialState)
 
     useEffect(() => {
-        // console.log('useEffect gets called');
-        const fetchProperty = async () => {
-
-            try {
-                const response = await fetch('http://localhost:3000/properties')
-                const data = await response.json()
-                // console.log(data)
-                const wedding = data.filter((item) => {
-                    // console.log(item);
-                    return item.category_id === 3
-                })
-                dispatch({ type: 'PROPERTIES_LIST_REQUEST_SUCCESS', payload: wedding })
-            } catch (error) {
-                dispatch({ type: 'PROPERTIES_LIST_REQUEST_FAIL', payload: error.message });
-            }
-
-        }
-
-        fetchProperty()
+        getProperties(3)
+        .then((data) => {
+            dispatch({ type: 'PROPERTIES_LIST_REQUEST_SUCCESS', payload: data })
+        })
+        .catch((error)=>{
+            dispatch({ type: 'PROPERTIES_LIST_REQUEST_FAIL', payload: error.message })
+        })
     }, [])
 
     return (

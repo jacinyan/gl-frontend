@@ -3,6 +3,8 @@ import { Link, Route } from "react-router-dom";
 import { Card, Col } from "react-bootstrap";
 import Detail from "../_shared/detail";
 import propertyReducer from '../../../utils/reducers/propertyReducer'
+import {getProperties} from '../../../services/propertyServices'
+
 
 
 const initialState = {
@@ -16,25 +18,13 @@ const Corporate = (props) => {
     const [state, dispatch] = useReducer(propertyReducer, initialState)
 
     useEffect(() => {
-        // console.log('useEffect gets called');
-        const fetchProperty = async () => {
-
-            try {
-                const response = await fetch('http://localhost:3000/properties')
-                const data = await response.json()
-                // console.log(data)
-                const corporate = data.filter((item) => {
-                    // console.log(item);
-                    return item.category_id === 2
-                })
-                dispatch({type: 'PROPERTIES_LIST_REQUEST_SUCCESS', payload: corporate})
-            } catch (error) {
-                dispatch({type: 'PROPERTIES_LIST_REQUEST_FAIL', payload: error.message});
-            }
-
-        }
-
-        fetchProperty()
+        getProperties(2)
+        .then((data) => {
+            dispatch({ type: 'PROPERTIES_LIST_REQUEST_SUCCESS', payload: data })
+        })
+        .catch((error)=>{
+            dispatch({ type: 'PROPERTIES_LIST_REQUEST_FAIL', payload: error.message })
+        })
     }, [])
 
     return (

@@ -65,7 +65,6 @@ const Detail = props => {
                     </Col>
                 </Row>
             </Container>
-
         </>
     )
 }
