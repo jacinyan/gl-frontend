@@ -5,8 +5,6 @@ import Detail from "../_shared/detail";
 import propertyReducer from '../../../utils/reducers/propertyReducer'
 import {getProperties} from '../../../services/propertyServices'
 
-
-
 const initialState = {
     loading: true,
     error: '',
@@ -32,7 +30,7 @@ const Corporate = (props) => {
             {   
                 state.loading ? <h2>Loading...</h2>
                 :
-                state.error !== '' ? <h4>Oops, something went wrong</h4>
+                state.error !== '' ? <h4>Oops😅, something went wrong</h4>
                 :
                 props.location.state === undefined ?
                     state.properties.map((propObj) => {

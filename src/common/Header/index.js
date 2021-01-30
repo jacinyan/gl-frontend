@@ -23,6 +23,9 @@ const Header = () => {
                             <LinkContainer to="/login">
                                 <Nav.Link><i className='fas fa-user'></i>Login</Nav.Link>
                             </LinkContainer>
+                            <LinkContainer to="/sign_up">
+                                <Nav.Link><i className='fas fa-user'></i>Sign Up</Nav.Link>
+                            </LinkContainer>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

@@ -5,6 +5,7 @@ import Header from "./common/Header";
 import Home from "./pages/Home";
 import PropertiesScreen from './pages/Properties/PropertiesScreen';
 import Login from './pages/Login'
+import SignUp from './pages/SignUp';
 import Footer from './common/Footer';
 
 
@@ -18,6 +19,7 @@ const App = () => {
             <Route exact path='/' component={Home} />
             <Route path='/properties' component={PropertiesScreen} />
             <Route path='/login' component={Login} />
+            <Route path='/sign_up' component={SignUp} />
             <Redirect to='/' />
           </Switch>
         </Container>

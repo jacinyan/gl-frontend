@@ -1,23 +1,29 @@
 export const getProperties = async (category_id) => {
+    let token = "Bearer " + sessionStorage.getItem("jwt")
+    console.log(token);
 
-        const response = await fetch('http://localhost:3000/properties')
-        const data = await response.json()
-        // console.log(data)
-        const properties = data.filter((item) => {
-            // console.log(item);
-            return item.category_id === category_id
-        })
-        return properties
+    const response = await fetch('http://localhost:3000/properties', {
+        headers: {
+            'Authorization': token
+        }
+    })
+    const data = await response.json()
+    // console.log(data)
+    const properties = data.filter((property) => {
+        // console.log(item);
+        return property.category_id === category_id
+    })
+    return properties
 }
 
-export const createProperty = async () =>{
+export const createProperty = async () => {
 
 }
 
-export const updateProperty = async () =>{
-    
+export const updateProperty = async () => {
+
 }
 
-export const deleteProperty = async () =>{
-    
+export const deleteProperty = async () => {
+
 }

@@ -1,16 +1,18 @@
-import API from '../config/api'
-
 export async function signUp(data) {
-	const response = await API.post('/api/auth/sign_up', data)
 
-	return response.data
 }
-export async function signIn(data) {
-	const response = await API.post('/api/auth/sign_in', data)
-
-	return response.data
+export async function logIn(data) {
+    fetch('http://localhost:3000/auth/login', requestOptions)
+        .then(response => {
+            let data = response.json()
+            data.then(result => {
+                console.log(result)
+                sessionStorage.setItem("jwt", result.jwt)
+            })
+                .catch(error => console.error('Error:', error))
+        })
 }
-export async function signOut(data) {
-	sessionStorage.clear()
-	return "Logged out"
+export async function signOut() {
+    sessionStorage.clear()
+    return "Logged out"
 }

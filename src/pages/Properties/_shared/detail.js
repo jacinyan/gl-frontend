@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import { Card, Col, Row, Image, ListGroup, Container } from "react-bootstrap";
 
-
 const Detail = props => {
 
     const { title, category_id, featured_image, rate, description } = props.location.state || {}
