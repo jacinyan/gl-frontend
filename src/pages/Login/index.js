@@ -1,77 +1,93 @@
-import React, { useReducer, useRef } from 'react'
+import React, { useReducer } from 'react'
 import userReducer from '../../utils/reducers/userReducer'
+import propertyReducer from '../../utils/reducers/propertyReducer'
+import { useForm } from 'react-hook-form'
 
-const initialState = {
+//initial properties state
+const propertyInitialState = {
     error: '',
     properties: []
 }
 
+// const userInitialState = {
+//     username: '',
+//     email: ''
+// }
 
 const Login = () => {
+    // properties Reducer
+    const [propertyState, dispatchProperty] = useReducer(propertyReducer, propertyInitialState)
+    
+    // user Reducer
+    // const [userState, dispatchUser] = useReducer(userReducer, userInitialState)
 
-    const [state, dispatch] = useReducer(userReducer, initialState)
+    // login form handling
+    const { register, handleSubmit } = useForm();
 
-    const myRef1 = useRef()
-    const myRef2 = useRef()
+    const onSubmit = (formData) => {
 
-    // console.log(myRef1, myRef2);
+        // console.log(data);
+        const email = formData.email
+        const password = formData.password
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
-
-    // We format our request JSON for knock and then save the token it sends back in our browser’s local storage for later use.
-
-    const login = () => {
-        const email = myRef1.current.value
-        const password = myRef2.current.value
-        const request =  {"auth": { "email": email, "password": password } }
+        const request = { "auth": { "email": email, "password": password } }
 
         const requestOptions = {
             method: 'POST',
-            headers: new Headers ({
+            headers: new Headers({
                 'Content-Type': 'application/json;charset=utf-8;',
             }),
             body: JSON.stringify(request)
         }
-        fetch('http://localhost:3000/auth/login',requestOptions).then(response => {
-            let result = response.json()
-            result.then(data => {
-                console.log(data)
-            })
+
+        // We format our request JSON for knock and then save the token it sends back in our browser’s local storage for later use.
+        fetch('http://localhost:3000/auth/login', requestOptions).then(response => {
+            let data = response.json()
+            data.then(result => {
+                console.log(result)
+                sessionStorage.setItem("jwt", result.jwt)
+            }).catch(error => console.error('Error:', error))
         })
     }
 
-    const getProperties = () => {
 
-        const fetchBananas = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/properties')
-                const data = await response.json()
-                // console.log(data)
-                dispatch({ type: 'PROPERTIES_LIST_REQUEST_SUCCESS', payload: data })
-            } catch (error) {
-                dispatch({ type: 'PROPERTIES_LIST_REQUEST_FAIL', payload: error.message });
+    // fetch properties
+    const getProperties = () => {
+        let token = "Bearer " + sessionStorage.getItem("jwt")
+        console.log(token);
+
+        fetch('http://localhost:3000/properties', {
+            headers: {
+                'Authorization': token
             }
-        }
-        fetchBananas()
+        }).then(response => {
+            return response.json()
+        })
+        .then((data) => {
+            console.log(data);
+            dispatchProperty({type:'PROPERTIES_LIST_REQUEST_SUCCESS', payload: data})
+        })
+        .catch((error) => {
+            dispatchProperty({type:'PROPERTIES_LIST_REQUEST_FAIL', payload: error.message})
+        })
+
     }
 
-
+    // console.log(state);
 
     return (
         <>
             <h1 style={{ marginTop: "20vh", marginBottom: "5vh" }}>
                 Banana Management System
             </h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="email">Email: </label>
                 <br />
                 <input
                     name="email"
                     id="email"
                     type="email"
-                    ref={myRef1}
+                    ref={register({ required: true })}
                 />
                 <br /><br />
                 <label htmlFor="password">Password:</label>
@@ -80,11 +96,11 @@ const Login = () => {
                     name="password"
                     id="password"
                     type="password"
-                    ref={myRef2}
+                    ref={register({ required: true })}
                 />
-                <button
-                    onClick={login}
-                >
+                <br />
+                <br />
+                <button>
                     Login
                 </button>
             </form>
@@ -97,17 +113,18 @@ const Login = () => {
             </button>
             <>
                 {
-                    state.properties.map((propObj) => {
-                        return (
-                            <h3 key={propObj.id}>
-                                <p>ID:{propObj.id}</p>
-                                <p>TITLE:{propObj.title}</p>
-                                <p>DESCRIPTION:{propObj.description}</p>
-                                <p>CATEGORY_ID:{propObj.category_id}</p>
-                                <p>RATE:{propObj.rate}</p>
-                            </h3>
-                        )
-                    })
+                    propertyState.error !== '' ? <h4>Oops, something went wrong</h4> :
+                        propertyState.properties.map((propObj) => {
+                            return (
+                                <h3 key={propObj.id}>
+                                    <p>ID:{propObj.id}</p>
+                                    <p>TITLE:{propObj.title}</p>
+                                    <p>DESCRIPTION:{propObj.description}</p>
+                                    <p>CATEGORY_ID:{propObj.category_id}</p>
+                                    <p>RATE:{propObj.rate}</p>
+                                </h3>
+                            )
+                        })
                 }
             </>
         </>

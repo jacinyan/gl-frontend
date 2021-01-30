@@ -1,12 +1,12 @@
-import {PROPERTIES_LIST_REQUEST_SUCCESS, PROPERTIES_LIST_REQUEST_FAIL} from '../constants/userConstants'
+import {USER_LOGIN_SUCCESS, USER_LOGIN_FAIL} from '../constants/userConstants'
 
 export default function userReducer (state, action) {
 	switch(action.type) {
-		case PROPERTIES_LIST_REQUEST_SUCCESS:
+		case USER_LOGIN_SUCCESS:
 			return {
 				...state,
 				properties: action.payload}
-		case PROPERTIES_LIST_REQUEST_FAIL:
+		case USER_LOGIN_FAIL:
 			return {
 				...state,
 				error: action.payload}

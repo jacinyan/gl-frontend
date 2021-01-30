@@ -42,6 +42,8 @@ const Birthday = (props) => {
             {   
                 state.loading ? <h2>Loading...</h2>
                 :
+                state.error !== '' ? <h4>Oops, something went wrong</h4>
+                :
                 props.location.state === undefined ?
                     state.properties.map((propObj) => {
                         return (
