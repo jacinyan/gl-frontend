@@ -1,5 +1,5 @@
 export const getProperties = async (category_id) => {
-    let token = "Bearer " + sessionStorage.getItem("jwt")
+    let token = "Bearer " + localStorage.getItem("jwt")
     console.log(token);
 
     const response = await fetch('http://localhost:3000/properties', {
@@ -8,7 +8,7 @@ export const getProperties = async (category_id) => {
         }
     })
     const data = await response.json()
-    // console.log(data)
+    console.log(data)
     const properties = data.filter((property) => {
         // console.log(item);
         return property.category_id === category_id

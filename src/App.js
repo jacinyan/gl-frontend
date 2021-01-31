@@ -11,15 +11,17 @@ import { UserContext } from './utils/context/userContext'
 import userReducer from './utils/reducers/userReducer'
 
 const initialState = {
-  isLoggedIn: false,
-  user: null,
-  jwt: null,
+  isLoggedIn: localStorage.getItem("jwt")? true: false,
+  user: localStorage.getItem("user") || null,
+  jwt: localStorage.getItem("jwt") || null,
   errors: null
 };
 
 const App = () => {
 
   const [state, dispatch] = useReducer(userReducer, initialState)
+
+  console.log(state);
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>

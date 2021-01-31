@@ -3,9 +3,9 @@ import { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT } from '../constants/u
 export default function userReducer(state, action) {
 	switch (action.type) {
 		case USER_LOGIN_SUCCESS:
-
-			sessionStorage.setItem("user", action.payload.user);
-			sessionStorage.setItem("jwt", action.payload.jwt);
+			console.log("USER_LOGIN_SUCCESS");
+			localStorage.setItem("user", action.payload.user);
+			localStorage.setItem("jwt", action.payload.jwt);
 			
 			return {
 				...state,
@@ -20,7 +20,7 @@ export default function userReducer(state, action) {
 				errors: action.payload.message
 			}
 		case USER_LOGOUT:
-			sessionStorage.clear();
+			localStorage.clear();
 			return {
 				...state,
 				isLoggedIn: false,
