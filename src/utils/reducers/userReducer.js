@@ -1,4 +1,4 @@
-import { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT } from '../constants/userConstants'
+import { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT, USER_SIGNUP_SUCCESS, USER_SIGNUP_FAIL } from '../constants/userConstants'
 
 export default function userReducer(state, action) {
 	switch (action.type) {
@@ -6,7 +6,6 @@ export default function userReducer(state, action) {
 			console.log("USER_LOGIN_SUCCESS");
 			localStorage.setItem("user", action.payload.user);
 			localStorage.setItem("jwt", action.payload.jwt);
-			
 			return {
 				...state,
 				isLoggedIn: true,
@@ -14,10 +13,12 @@ export default function userReducer(state, action) {
 				jwt: action.payload.jwt
 			}
 		case USER_LOGIN_FAIL:
+			console.log("USER_LOGIN_FAIL");
+			console.log(action.payload)
 			return {
 				...state,
 				isLoggedIn: false,
-				errors: action.payload.message
+				error: action.payload.headers.statusText
 			}
 		case USER_LOGOUT:
 			localStorage.clear();
@@ -27,6 +28,10 @@ export default function userReducer(state, action) {
 				user: null,
 				jwt: null
 			  }
+		case USER_SIGNUP_SUCCESS:
+			return {}
+		case USER_SIGNUP_FAIL:
+			return {}
 		default:
 			return state
 	}

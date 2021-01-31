@@ -3,10 +3,7 @@ import { useForm } from 'react-hook-form'
 import {UserContext} from '../../utils/context/userContext'
 
 
-const Login = (props) => {
-
-    // use props from App to verify if it is a global state
-    console.log(props.state)
+const Login = () => {
 
     const { dispatch } = useContext(UserContext)
 
@@ -35,7 +32,6 @@ const Login = (props) => {
             throw response;
         })
         .then(result => {
-            // console.log(result);
             dispatch({
                 type: "USER_LOGIN_SUCCESS",
                 payload: {
@@ -51,7 +47,6 @@ const Login = (props) => {
             });
           })
     }
-    // console.log(state);
 
     return (
         <>  

@@ -14,14 +14,12 @@ const initialState = {
   isLoggedIn: localStorage.getItem("jwt")? true: false,
   user: localStorage.getItem("user") || null,
   jwt: localStorage.getItem("jwt") || null,
-  errors: null
+  error: null
 };
 
 const App = () => {
 
   const [state, dispatch] = useReducer(userReducer, initialState)
-
-  console.log(state);
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>
@@ -43,7 +41,7 @@ const App = () => {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/properties' component={PropertiesScreen} />
-              <Route path='/login' render={(props) => <Login {...props} state={state}/>} />
+              <Route path='/login' render={(props) => <Login {...props}/>} />
               <Redirect to='/' />
             </Switch>
           </Container>
