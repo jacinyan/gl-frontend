@@ -3,9 +3,10 @@ import { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT } from '../constants/u
 export default function userReducer(state, action) {
 	switch (action.type) {
 		case USER_LOGIN_SUCCESS:
-			console.log(action.type)
+
 			sessionStorage.setItem("user", action.payload.user);
-            sessionStorage.setItem("jwt", action.payload.jwt);
+			sessionStorage.setItem("jwt", action.payload.jwt);
+			
 			return {
 				...state,
 				isLoggedIn: true,

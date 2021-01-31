@@ -5,6 +5,7 @@ import {UserContext} from '../../utils/context/userContext'
 
 const Login = (props) => {
 
+    // use props from App to verify if it is a global state
     console.log(props.state)
 
     const { dispatch } = useContext(UserContext)
@@ -26,15 +27,6 @@ const Login = (props) => {
             body: JSON.stringify(request)
         }
 
-        // We format our request JSON for knock and then save the token it sends back in our browser’s session storage for later use.
-        // fetch('http://localhost:3000/auth/login', requestOptions).then(response => {
-        //     let data = response.json()
-        //     data.then(result => {
-        //         console.log(result)
-        //         sessionStorage.setItem("jwt", result.jwt)
-        //     }).catch(error => console.error('Error:', error))
-        // })
-
         fetch('http://localhost:3000/auth/login', requestOptions)
         .then(response => {
             if (response.ok) {
@@ -43,7 +35,7 @@ const Login = (props) => {
             throw response;
         })
         .then(result => {
-            console.log(result);
+            // console.log(result);
             dispatch({
                 type: "USER_LOGIN_SUCCESS",
                 payload: {
