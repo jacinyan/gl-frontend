@@ -3,7 +3,7 @@ import { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT, USER_SIGNUP_SUCCESS, 
 export default function userReducer(state, action) {
 	switch (action.type) {
 		case USER_LOGIN_SUCCESS:
-			console.log("USER_LOGIN_SUCCESS");
+			console.log(action.payload);
 			localStorage.setItem("user", action.payload.user);
 			localStorage.setItem("jwt", action.payload.jwt);
 			return {
@@ -29,7 +29,15 @@ export default function userReducer(state, action) {
 				jwt: null
 			  }
 		case USER_SIGNUP_SUCCESS:
-			return {}
+			console.log("USER_SIGNUP_SUCCESS");
+			localStorage.setItem("user", action.payload.user);
+			localStorage.setItem("jwt", action.payload.jwt);
+			return {
+				...state,
+				isLoggedIn: true,
+				user: action.payload.user,
+				jwt: action.payload.jwt
+			}
 		case USER_SIGNUP_FAIL:
 			return {}
 		default:

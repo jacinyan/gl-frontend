@@ -14,7 +14,7 @@ const Login = () => {
         const email = formData.email
         const password = formData.password
 
-        const request = { "auth": { "email": email, "password": password } }
+        const request =  { "email": email, "password": password } 
 
         const requestOptions = {
             method: 'POST',
@@ -35,7 +35,7 @@ const Login = () => {
             dispatch({
                 type: "USER_LOGIN_SUCCESS",
                 payload: {
-                    user: 'USER',
+                    user: result.username,
                     jwt : result.jwt
                 }
             })

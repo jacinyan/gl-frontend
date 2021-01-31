@@ -29,16 +29,17 @@ const SignUp = () => {
 
         fetch('http://localhost:3000/auth/sign_up', requestOptions)
             .then(response => {
-                if (response.created) {
+                if (response.ok) {
                     return response.json();
                 }
                 throw response;
             })
             .then(result => {
+                console.log(result);
                 dispatch({
                     type: "USER_SIGNUP_SUCCESS",
                     payload: {
-                        user: username,
+                        user: result.username,
                         jwt: result.jwt
                     }
                 })
@@ -100,7 +101,7 @@ const SignUp = () => {
                 <br />
                 <br />
                 <button disabled={isSubmitting}>
-                    {isSubmitting ? ("Loading...") : ("Login")}
+                    {isSubmitting ? ("Loading...") : ("Sign Up")}
                 </button>
             </form>
         </>
