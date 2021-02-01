@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useContext } from 'react'
-import { Route } from "react-router-dom";
+// import { Route } from "react-router-dom";
 // import Detail from "../_shared/detail";
 // import List from '../_shared/list'
 
@@ -17,34 +17,44 @@ const Bookings = (props) => {
 
     const {state: loggedInState} = useContext(UserContext)
 
+    console.log(loggedInState)
+
     const [state, dispatch] = useReducer(bookingReducer, initialState)
 
     useEffect(() => {
         dispatch({
             type: "BOOKINGS_LIST_REQUEST"
           });
-        getBookings(3)
+        getBookings(loggedInState.username)
         .then((data) => {
             dispatch({ type: 'BOOKINGS_LIST_REQUEST_SUCCESS', payload: data })
         })
         .catch((error)=>{
             dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error })
         })
-    }, [loggedInState.jwt])
+    }, [loggedInState.jwt,loggedInState.username])
 
     return (    
         <>
+            <h4>Bookings</h4>
             {
                 state.isLoading ? <h2>Loading...</h2> 
                 :
                 state.error !== '' ? <h4>Oops😅, something went wrong</h4>
                 :
                 props.location.state === undefined ?
-                <h4>Bookings</h4>
+                state.bookings.map((bookingObj) => {
+                    return (
+                        <div key={bookingObj}>
+                            {bookingObj.start_date}
+                            <br />
+                            {bookingObj.end_date}  
+                        </div>
+                    )
+                })
                 :
                 null
             }
-            {/* <Route path="/properties/wedding/detail" render={(props) => <Detail {...props} />} /> */}
         </>
     )
 }

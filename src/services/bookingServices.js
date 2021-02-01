@@ -1,4 +1,4 @@
-export const getBookings = async (user_id) => {
+export const getBookings = async (username) => {
     let token = "Bearer " + localStorage.getItem("jwt")
 
     const response = await fetch('http://localhost:3000/bookings', {
@@ -8,8 +8,9 @@ export const getBookings = async (user_id) => {
     })
     const data = await response.json()
     const bookings = data.filter((booking) => {
-        return booking.user === user_id
+        return booking.username === username
     })
+    console.log(bookings);
     return bookings
 }
 

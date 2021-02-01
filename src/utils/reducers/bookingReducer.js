@@ -12,7 +12,7 @@ export default function bookingReducer (state, action) {
 			return {
 				...state,
 				isLoading: false, 
-				properties: action.payload
+				bookings: action.payload
 			}
 		case BOOKINGS_LIST_REQUEST_FAIL:
 			return {
