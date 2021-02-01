@@ -20,11 +20,14 @@ const Header = () => {
                             <LinkContainer to="/properties">
                                 <Nav.Link>Properties</Nav.Link>
                             </LinkContainer>
+                            <LinkContainer to="/bookings">
+                                <Nav.Link>Bookings</Nav.Link>
+                            </LinkContainer>
                             <LinkContainer to="/login">
-                                <Nav.Link><i className='fas fa-user'></i>Login</Nav.Link>
+                                <Nav.Link><i className="fas fa-sign-in-alt"></i>Login</Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/sign_up">
-                                <Nav.Link><i className='fas fa-user'></i>Sign Up</Nav.Link>
+                                <Nav.Link><i className='fas fa-user-plus'></i>Sign Up</Nav.Link>
                             </LinkContainer>
                         </Nav>
                     </Navbar.Collapse>

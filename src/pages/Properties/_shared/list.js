@@ -10,7 +10,7 @@ const List = ({ state }) => {
     const category = () => state.properties[0].category_id === 1 ? 'birthday' : state.properties[0].category_id === 2 ? 'corporate' : state.properties[0].category_id === 3 ? 'wedding' : ''
 
     return (
-        <div>
+        <>
             {
                 state.properties.map((propObj) => {
                     return (
@@ -35,7 +35,7 @@ const List = ({ state }) => {
                         </Col>
                     )
                 })}
-        </div>
+        </>
     )
 }
 
