@@ -3,8 +3,8 @@ import { Route } from "react-router-dom";
 // import Detail from "../_shared/detail";
 // import List from '../_shared/list'
 
-import bookingReducer from '../../../utils/reducers/bookingReducer'
-import {getBookings} from '../../utils/reducers/bookingReducer'
+import bookingReducer from '../../utils/reducers/bookingReducer'
+import {getBookings} from '../../services/bookingServices'
 import {UserContext} from '../../utils/context/userContext'
 
 const initialState = {
@@ -40,7 +40,7 @@ const Bookings = (props) => {
                 state.error !== '' ? <h4>Oops😅, something went wrong</h4>
                 :
                 props.location.state === undefined ?
-                <List state={state}/>
+                <h4>Bookings</h4>
                 :
                 null
             }

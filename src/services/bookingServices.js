@@ -1,26 +1,26 @@
-export const getProperties = async (category_id) => {
+export const getBookings = async (user_id) => {
     let token = "Bearer " + localStorage.getItem("jwt")
 
-    const response = await fetch('http://localhost:3000/booking', {
+    const response = await fetch('http://localhost:3000/bookings', {
         headers: {
             'Authorization': token
         }
     })
     const data = await response.json()
-    const properties = data.filter((property) => {
-        return property.category_id === category_id
+    const bookings = data.filter((booking) => {
+        return booking.user === user_id
     })
-    return properties
+    return bookings
 }
 
-export const createProperty = async () => {
-
-}
-
-export const updateProperty = async () => {
+export const createBooking = async () => {
 
 }
 
-export const deleteProperty = async () => {
+export const updateBooking = async () => {
+
+}
+
+export const deleteBooking = async () => {
 
 }
