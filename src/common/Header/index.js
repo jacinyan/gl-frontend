@@ -1,12 +1,23 @@
-import React from 'react';
-import { Navbar, Nav, Container} from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 
+import { UserContext } from '../../utils/context/userContext'
+// import userReducer from '../../utils/reducers/userReducer'
 
-const Header = () => {
+
+const Header = (props) => {
+
+    const {dispatch } = useContext(UserContext)
+
+    const logoutHandler = () => {
+        dispatch({type:'USER_LOGOUT'})
+    }
+
+
     return (
         <header>
-            <Navbar bg="dark"  expand="lg" collapseOnSelect variant="pills">
+            <Navbar bg="dark" expand="lg" collapseOnSelect variant="pills">
                 <Container>
                     <LinkContainer to="/">
                         <Navbar.Brand>Gold Label</Navbar.Brand>
@@ -20,15 +31,24 @@ const Header = () => {
                             <LinkContainer to="/properties">
                                 <Nav.Link>Properties</Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to="/bookings">
-                                <Nav.Link>Bookings</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/login">
-                                <Nav.Link><i className="fas fa-sign-in-alt"></i>Login</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/sign_up">
-                                <Nav.Link><i className='fas fa-user-plus'></i>Sign Up</Nav.Link>
-                            </LinkContainer>
+                            {props.state ?
+                                <>
+                                    <LinkContainer to="/bookings">
+                                        <Nav.Link>Bookings</Nav.Link>
+                                    </LinkContainer>
+                                    <Nav.Link onClick={logoutHandler}><i className='fas fa-sign-out-alt'></i>Log out
+                                    </Nav.Link>
+                                </>
+                                :
+                                <>
+                                    <LinkContainer to="/login">
+                                        <Nav.Link><i className="fas fa-sign-in-alt"></i>Login</Nav.Link>
+                                    </LinkContainer>
+                                    <LinkContainer to="/sign_up">
+                                        <Nav.Link ><i className='fas fa-user-plus'></i>Sign Up</Nav.Link>
+                                    </LinkContainer>
+                                </>
+                            }
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

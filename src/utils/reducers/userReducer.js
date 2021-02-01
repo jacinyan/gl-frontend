@@ -21,6 +21,7 @@ export default function userReducer(state, action) {
 				error: action.payload.headers.statusText
 			}
 		case USER_LOGOUT:
+			console.log("USER_LOGOUT");
 			localStorage.clear();
 			return {
 				...state,

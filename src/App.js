@@ -12,7 +12,7 @@ import { UserContext } from './utils/context/userContext'
 import userReducer from './utils/reducers/userReducer'
 
 const initialState = {
-  isLoggedIn: localStorage.getItem("jwt")? true: false,
+  isLoggedIn: localStorage.getItem("jwt")? true : false,
   user: localStorage.getItem("user") || null,
   jwt: localStorage.getItem("jwt") || null,
   error: null
@@ -24,32 +24,19 @@ const App = () => {
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>
-      <Header />
-      {
-        !state.isLoggedIn ? 
-        <main className='py-3'>
-        <Container>
-          <Switch>
-            <Route path='/login' component={Login} />
-            <Route path='/sign_up' component={SignUp} />
-            <Redirect to='/' />
-          </Switch>
-        </Container>
-      </main>
-      :
+      <Header state={state.isLoggedIn}/>  
         <main className='py-3'>
           <Container>
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/properties' component={PropertiesScreen} />
-              <Route path='/login' render={(props) => <Login {...props}/>} />
-              <Route path='/sign_up' render={(props) => <SignUp {...props}/>} />
               <Route path='/bookings' render={(props) => <Bookings {...props}/>} />
+              <Route path='/login' render={(props) => <Login {...props}/> } />
+              <Route path='/sign_up' render={(props) => <SignUp {...props}/>} />
               <Redirect to='/' />
             </Switch>
           </Container>
         </main>
-      }
       <Footer />
     </UserContext.Provider>
   );
