@@ -1,9 +1,12 @@
 import React, { useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { UserContext } from '../../utils/context/userContext'
 
 
 const SignUp = () => {
+
+    const history = useHistory()
 
     const { dispatch } = useContext(UserContext)
 
@@ -43,6 +46,7 @@ const SignUp = () => {
                         jwt: result.jwt
                     }
                 })
+                history.push('/')
             })
             .catch(error => {
                 dispatch({
@@ -66,6 +70,7 @@ const SignUp = () => {
                     type="input"
                     ref={register({ required: true })}
                 />
+                {errors.username ? <span>&nbsp;{errors.username.message}</span> : null}
                 <br/>
                 <br/>
                 <label htmlFor="email">Email: </label>
@@ -76,7 +81,7 @@ const SignUp = () => {
                     type="email"
                     ref={register({ required: true })}
                 />
-                {errors.email ? <div>{errors.email.message}</div> : null}
+                {errors.email ? <span>&nbsp;{errors.email.message}</span> : null}
                 <br /><br />
                 <label htmlFor="password">Password:</label>
                 <br />
@@ -84,12 +89,18 @@ const SignUp = () => {
                     name="password"
                     id="password"
                     type="password"
-                    ref={register({ required: true })}
+                    ref={register({ 
+                        required: true,
+                        minLength: {
+                            value: 6,
+                            message: '*must be 6 chars'
+                        }
+                    })}
                 />
-                {errors.password ? <div>{errors.password.message}</div> : null}
+                {errors.password ? <span>&nbsp;{errors.password.message}</span> : null}
                 <br/>
                 <br/>
-                <label htmlFor="password">Password_Confirmation:</label>
+                <label htmlFor="password">Password Confirmation:</label>
                 <br />
                 <input
                     name="password_confirmation"

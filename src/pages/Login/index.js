@@ -1,9 +1,12 @@
 import React, { useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import {UserContext} from '../../utils/context/userContext'
 
 
 const Login = () => {
+
+    const history = useHistory()
 
     const { dispatch } = useContext(UserContext)
 
@@ -39,6 +42,7 @@ const Login = () => {
                     jwt : result.jwt
                 }
             })
+          history.push('/')
           })
         .catch(error => {
             dispatch({
