@@ -18,7 +18,7 @@ export default function userReducer(state, action) {
 			return {
 				...state,
 				isLoggedIn: false,
-				error: action.payload.headers.statusText
+				error: action.payload
 			}
 		case USER_LOGOUT:
 			localStorage.clear();

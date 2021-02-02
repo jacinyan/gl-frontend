@@ -24,29 +24,21 @@ const App = () => {
   return (
     <UserContext.Provider value={{ state, dispatch }}>
       <Header />
-      {
-        !state.isLoggedIn ? 
-        <main className='py-3'>
-        <Container>
-          <Switch>
-            <Route path='/login' component={Login} />
-            <Route path='/sign_up' component={SignUp} />
-            <Redirect to='/' />
-          </Switch>
-        </Container>
-      </main>
-      :
+ 
         <main className='py-3'>
           <Container>
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/properties' component={PropertiesScreen} />
               <Route path='/login' render={(props) => <Login {...props}/>} />
+              <Route path='/login' component={Login} />
+            <Route path='/sign_up' component={SignUp} />
+            <Redirect to='/' />
               <Redirect to='/' />
             </Switch>
           </Container>
         </main>
-      }
+
       <Footer />
     </UserContext.Provider>
   );
