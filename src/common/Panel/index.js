@@ -4,11 +4,12 @@ import DatePicker from "react-datepicker";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import "react-datepicker/dist/react-datepicker.css";
+import styles from './index.module.css'
 import PubSub from 'pubsub-js'
 
 let receivedTitle = ''
 
-const MyForm = () => {
+const Panel = () => {
   const { handleSubmit, register, watch, control } = useForm();
   const { startDate, endDate } = watch(["startDate", "endDate"]);
   const [submittedData, setSubmittedData] = React.useState({});
@@ -23,82 +24,78 @@ const MyForm = () => {
   };
 
   return (
-    <div className="layout">
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-section">
-          <label htmlFor="title" className="form-label">
-          <i>Your pick:</i>&nbsp;<strong>{receivedTitle}</strong>
-          </label>
+        <div className={styles.title}>
+          <label htmlFor="title"><i ><strong>{receivedTitle}</strong></i></label>
           <input id="title" name="title" type="text" ref={register} readOnly value={receivedTitle} hidden />
         </div>
-        <div className="form-section">
-          <label htmlFor="startDate" className="form-label">
-            <i>Start Date:</i>
-          </label>
-          <Controller
-            as={
-              <DatePicker
-                id="startDate"
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                timeCaption="time"
-                dateFormat="dd/MM/yyyy, h:mm aa"
-                minDate={new Date()}
-                minTime={setHours(setMinutes(new Date(), 0), 6)}
-                maxTime={setHours(setMinutes(new Date(), 30), 23)}
-                selectsStart
-                startDate={startDate}
-                endDate={endDate}
-                className="red-border"
-                isClearable
-                shouldCloseOnSelect={false}
-                todayButton="Today"
-              />
-            }
-            name="startDate"
-            control={control}
-            selected={startDate}
-            defaultValue=''
-          />
+        <div className={styles.from}>from</div>
+        <div className={styles.clearFix}>
+          <div className={styles.startDate}>
+            <Controller
+              as={
+                <DatePicker
+                  id="startDate"
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={15}
+                  timeCaption="time"
+                  dateFormat="dd/MM/yyyy, h:mm aa"
+                  minDate={new Date()}
+                  minTime={setHours(setMinutes(new Date(), 0), 6)}
+                  maxTime={setHours(setMinutes(new Date(), 30), 23)}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                  className="red-border"
+                  isClearable
+                  shouldCloseOnSelect={false}
+                  todayButton="Today"
+                />
+              }
+              name="startDate"
+              control={control}
+              selected={startDate}
+              defaultValue=''
+            />
+          </div>
+          <div className={styles.to}>to</div>
+          <div className={styles.endDate}>
+            <Controller
+              as={
+                <DatePicker
+                  id="endDate"
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={15}
+                  timeCaption="time"
+                  dateFormat="dd/MM/yyyy, h:mm aa"
+                  minDate={startDate || new Date()}
+                  minTime={startDate || new Date()}
+                  maxTime={setHours(setMinutes(new Date(), 30), 23) || new Date()}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  className="red-border"
+                  isClearable
+                  shouldCloseOnSelect={false}
+                  todayButton="Today"
+                />
+              }
+              name="endDate"
+              control={control}
+              selected={endDate}
+              defaultValue=""
+            />
+          </div>
         </div>
-        <div className="form-section">
-          <label htmlFor="endDate" className="form-label">
-            <i>End Date:</i>
-          </label>
-          <Controller
-            as={
-              <DatePicker
-                id="endDate"
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                timeCaption="time"
-                dateFormat="dd/MM/yyyy, h:mm aa"
-                minDate={startDate}
-                minTime={startDate}
-                maxTime={setHours(setMinutes(new Date(), 30), 23)}
-                selectsEnd
-                startDate={startDate}
-                endDate={endDate}
-                className="red-border"
-                isClearable
-                shouldCloseOnSelect={false}
-                todayButton="Today"
-              />
-            }
-            name="endDate"
-            control={control}
-            selected={endDate}
-            defaultValue=""
-          />
-        </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className={styles.button}>Submit</button>
       </form>
-      <p>Submitted data:</p>
-      <pre>{JSON.stringify(submittedData, null, 2)}</pre>
-    </div>
+      {/* <p>Submitted data:</p>
+      <pre>{JSON.stringify(submittedData, null, 2)}</pre> */}
+    </>
   );
 };
 
-export default MyForm;
+export default Panel;

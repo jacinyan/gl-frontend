@@ -1,6 +1,9 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Link } from "react-router-dom";
 import { Card, Col, Row, Image, ListGroup, Container, Button } from "react-bootstrap";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
 import Panel from '../../../common/Panel'
 
 import PubSub from 'pubsub-js'
@@ -15,7 +18,10 @@ const Detail = props => {
     const category = () => category_id === 1 ? 'birthday' : category_id === 2 ? 'corporate' : 'wedding'
 
     // inform Panel comp
-    PubSub.publish('title', title)
+    useEffect(() => {
+        PubSub.publish('title', title)
+    }, [title])
+  
 
     return (
         <>
@@ -48,7 +54,10 @@ const Detail = props => {
                                 <ListGroup.Item>
                                     <Row>
                                         <Col>
-                                            <Button varian="success">PICK A DATE</Button>
+                                            <Popup trigger={<Button varian="success">PICK A DATE</Button>} 
+                                                modal>
+                                                <Panel />
+                                            </Popup>
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
@@ -57,7 +66,6 @@ const Detail = props => {
                     </Col>
                 </Row>
             </Container>
-           <Panel />
         </>
     )
 }
