@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { useForm} from 'react-hook-form'
 import { UserContext } from '../../utils/context/userContext'
 
 
@@ -10,14 +10,12 @@ const SignUp = () => {
 
     const { dispatch } = useContext(UserContext)
 
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit, errors, formState} = useForm({mode: "onChange"});
 
-    const [submitting, setSubmitting] = useState(false)
+    // Server Errors handling
     const [serverErrors, setServerErrors] = useState('')
 
     const onSubmit = (formData) => {
-
-        setSubmitting(true)
 
         const username = formData.username
         const email = formData.email
@@ -57,8 +55,15 @@ const SignUp = () => {
             .catch(error => {
                 const detail = error.json()
                 detail.then(message => {
+                    console.log(message);
+                    if (message.username) {
+                        setServerErrors('This username has been taken')
+                    }
+                    if (message.email) {
+                        setServerErrors('This email has been taken')
+                    }
                     if (message.password_confirmation) {
-                        setServerErrors('Password and confirmation don\'t match')
+                        setServerErrors('The Password and confirmation don\'t match')
                     }
                     dispatch({
                         type: "USER_SIGNUP_FAIL",
@@ -66,8 +71,6 @@ const SignUp = () => {
                     })
                 });
             })
-
-        setSubmitting(false)
     }
 
 
@@ -87,7 +90,7 @@ const SignUp = () => {
                     type="input"
                     ref={register({ required: true })}
                 />
-                {errors.username && <>{errors.username.message}</>}
+                {errors.username && <span>&nbsp;*Username is required</span>}
                 <br />
                 <br />
                 <label htmlFor="email">Email: </label>
@@ -98,7 +101,7 @@ const SignUp = () => {
                     type="email"
                     ref={register({ required: true })}
                 />
-                {errors.email ? <span>&nbsp;{errors.email.message}</span> : null}
+                {errors.email && <span>&nbsp;*Email is required</span>}
                 <br /><br />
                 <label htmlFor="password">Password:</label>
                 <br />
@@ -133,7 +136,9 @@ const SignUp = () => {
                 {errors.password_confirmation ? <span>&nbsp;{errors.password_confirmation.message}</span> : null}
                 <br />
                 <br />
-                <input type="submit" value="Sign Up" disabled={submitting} />
+                <button type="submit" disabled={!formState.isValid} >
+                    Sign Up
+                </button>
             </form>
         </>
     )

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import {UserContext} from '../../utils/context/userContext'
@@ -10,7 +10,10 @@ const Login = () => {
 
     const { dispatch } = useContext(UserContext)
 
-    const { register, handleSubmit, errors, formState: { isSubmitting } } = useForm();
+    const { register, handleSubmit, errors, formState } = useForm({mode: "onChange"});
+
+    // Server Errors handling
+    const [serverErrors, setServerErrors] = useState('')
 
     const onSubmit = (formData) => {
 
@@ -45,10 +48,16 @@ const Login = () => {
           history.push('/')
           })
         .catch(error => {
-            console.log(error)
-            dispatch({
-                type: "USER_LOGIN_FAIL",
-                payload: error
+            const detail = error.json()
+            detail.then(message => {
+                console.log(message);
+                if (message.error) {
+                    setServerErrors(`${message.error}`)
+                }
+                dispatch({
+                    type: "USER_LOGIN_FAIL",
+                    payload: detail
+                })
             });
           })
     }
@@ -58,6 +67,7 @@ const Login = () => {
             <h1 style={{ marginTop: "20vh", marginBottom: "5vh" }}>
                 Banana Management System
             </h1>
+            {serverErrors ? <p style={{ color: 'red' }}>{'** ' + serverErrors}</p> : null}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="email">Email: </label>
                 <br />
@@ -67,7 +77,7 @@ const Login = () => {
                     type="email"
                     ref={register({ required: true })}
                 />
-                {errors.email ? <div>{errors.email.message}</div> : null}
+               {errors.email && <span>&nbsp;*Email is required</span>}
                 <br /><br />
                 <label htmlFor="password">Password:</label>
                 <br />
@@ -77,11 +87,11 @@ const Login = () => {
                     type="password"
                     ref={register({ required: true })}
                 />
-                {errors.password ? <div>{errors.password.message}</div> : null}
+               {errors.password && <span>&nbsp;*Password is required</span>}
                 <br />
                 <br />
-                <button disabled={isSubmitting}>
-                    {isSubmitting ? ("Loading...") : ("Login")}
+                <button type="submit" disabled={!formState.isValid} >
+                    Sign In
                 </button>
             </form>
         </>
