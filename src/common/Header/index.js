@@ -1,17 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext} from 'react';
+import { useHistory} from 'react-router-dom'
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 
 import { UserContext } from '../../utils/context/userContext'
-// import userReducer from '../../utils/reducers/userReducer'
 
 
-const Header = (props) => {
+const Header = ({state}) => {
+
+    const history = useHistory()
 
     const {dispatch } = useContext(UserContext)
 
     const logoutHandler = () => {
         dispatch({type:'USER_LOGOUT'})
+        history.push('/login')
     }
 
 
@@ -31,7 +34,7 @@ const Header = (props) => {
                             <LinkContainer to="/properties">
                                 <Nav.Link>Properties</Nav.Link>
                             </LinkContainer>
-                            {props.state ?
+                            {state ?
                                 <>
                                     <LinkContainer to="/bookings">
                                         <Nav.Link>Bookings</Nav.Link>

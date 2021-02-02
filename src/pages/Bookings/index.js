@@ -17,11 +17,10 @@ const Bookings = (props) => {
 
     const {state: loggedInState} = useContext(UserContext)
 
-    console.log(loggedInState)
-
     const [state, dispatch] = useReducer(bookingReducer, initialState)
 
     useEffect(() => {
+        console.log('Bookings useEffect');
         dispatch({
             type: "BOOKINGS_LIST_REQUEST"
           });

@@ -31,6 +31,7 @@ export default function userReducer(state, action) {
 			  }
 		case USER_SIGNUP_SUCCESS:
 			console.log("USER_SIGNUP_SUCCESS");
+			console.log(action.payload);
 			localStorage.setItem("user", action.payload.user);
 			localStorage.setItem("jwt", action.payload.jwt);
 			return {
