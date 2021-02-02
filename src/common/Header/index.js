@@ -10,8 +10,6 @@ const Header = ({ state }) => {
 
     const history = useHistory()
 
-    console.log(history);
-
     const { dispatch } = useContext(UserContext)
 
     const logoutHandler = () => {

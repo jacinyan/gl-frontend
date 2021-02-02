@@ -45,6 +45,7 @@ const Login = () => {
           history.push('/')
           })
         .catch(error => {
+            console.log(error)
             dispatch({
                 type: "USER_LOGIN_FAIL",
                 payload: error

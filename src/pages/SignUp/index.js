@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { UserContext } from '../../utils/context/userContext'
@@ -10,17 +10,22 @@ const SignUp = () => {
 
     const { dispatch } = useContext(UserContext)
 
-    const { register, handleSubmit, errors, formState: { isSubmitting } } = useForm();
+    const { register, handleSubmit, errors } = useForm();
+
+    const [submitting, setSubmitting] = useState(false)
+    const [serverErrors, setServerErrors] = useState('')
 
     const onSubmit = (formData) => {
-        
+
+        setSubmitting(true)
+
         const username = formData.username
         const email = formData.email
         const password = formData.password
         const password_confirmation = formData.password_confirmation
         const admin = false
 
-        const request = { "username": username, "email": email, "password": password, "password_confirmation": password_confirmation, "admin": admin } 
+        const request = { "username": username, "email": email, "password": password, "password_confirmation": password_confirmation, "admin": admin }
 
         const requestOptions = {
             method: 'POST',
@@ -29,6 +34,7 @@ const SignUp = () => {
             }),
             body: JSON.stringify(request)
         }
+
 
         fetch('http://localhost:3000/auth/sign_up', requestOptions)
             .then(response => {
@@ -49,18 +55,29 @@ const SignUp = () => {
                 history.push('/')
             })
             .catch(error => {
-                dispatch({
-                    type: "USER_SIGNUP_FAIL",
-                    payload: error
+                const detail = error.json()
+                detail.then(message => {
+                    if (message.password_confirmation) {
+                        setServerErrors('Password and confirmation don\'t match')
+                    }
+                    dispatch({
+                        type: "USER_SIGNUP_FAIL",
+                        payload: detail
+                    })
                 });
             })
+
+        setSubmitting(false)
     }
+
+
 
     return (
         <>
-            <h1 style={{ marginTop: "20vh", marginBottom: "5vh" }}>
+            <h1 style={{ marginTop: "10vh", marginBottom: "5vh" }}>
                 Banana Management System
             </h1>
+            {serverErrors ? <p style={{ color: 'red' }}>{'** ' + serverErrors}</p> : null}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="email">Username: </label>
                 <br />
@@ -70,9 +87,9 @@ const SignUp = () => {
                     type="input"
                     ref={register({ required: true })}
                 />
-                {errors.username ? <span>&nbsp;{errors.username.message}</span> : null}
-                <br/>
-                <br/>
+                {errors.username && <>{errors.username.message}</>}
+                <br />
+                <br />
                 <label htmlFor="email">Email: </label>
                 <br />
                 <input
@@ -89,17 +106,22 @@ const SignUp = () => {
                     name="password"
                     id="password"
                     type="password"
-                    ref={register({ 
+                    ref={register({
                         required: true,
                         minLength: {
                             value: 6,
                             message: '*must be 6 chars'
+                        },
+                        validate: (value) => {
+                            return (
+                                [/[^a-zA-Z0-9]/].every(pattern => pattern.test(value))
+                            ) || '*must include a special char'
                         }
                     })}
                 />
                 {errors.password ? <span>&nbsp;{errors.password.message}</span> : null}
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <label htmlFor="password">Password Confirmation:</label>
                 <br />
                 <input
@@ -108,12 +130,10 @@ const SignUp = () => {
                     type="password"
                     ref={register({ required: true })}
                 />
-                {errors.password_confirmation ? <div>{errors.password_confirmation.message}</div> : null}
+                {errors.password_confirmation ? <span>&nbsp;{errors.password_confirmation.message}</span> : null}
                 <br />
                 <br />
-                <button disabled={isSubmitting}>
-                    {isSubmitting ? ("Loading...") : ("Sign Up")}
-                </button>
+                <input type="submit" value="Sign Up" disabled={submitting} />
             </form>
         </>
     )
