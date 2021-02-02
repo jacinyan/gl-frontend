@@ -4,34 +4,36 @@ import DatePicker from "react-datepicker";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import "react-datepicker/dist/react-datepicker.css";
+import PubSub from 'pubsub-js'
+
+let receivedTitle = ''
 
 const MyForm = () => {
   const { handleSubmit, register, watch, control } = useForm();
-  const { startDate, endDate} = watch(["startDate", "endDate"]);
+  const { startDate, endDate } = watch(["startDate", "endDate"]);
   const [submittedData, setSubmittedData] = React.useState({});
+
+  PubSub.subscribe('title', (_, title) => {
+    console.log(title);
+    receivedTitle = title
+  })
 
   const onSubmit = (data) => {
     setSubmittedData(data);
   };
+
   return (
     <div className="layout">
-      <h3>Pick a Time</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-section">
           <label htmlFor="title" className="form-label">
-            Title
+          <i>Your pick:</i>&nbsp;<strong>{receivedTitle}</strong>
           </label>
-          <input id="title" name="title" type="text" ref={register} />
-        </div>
-        <div className="form-section">
-          <label htmlFor="description" className="form-label">
-            Description
-          </label>
-          <textarea id="description" name="description" ref={register} />
+          <input id="title" name="title" type="text" ref={register} readOnly value={receivedTitle} hidden />
         </div>
         <div className="form-section">
           <label htmlFor="startDate" className="form-label">
-            Start Date
+            <i>Start Date:</i>
           </label>
           <Controller
             as={
@@ -62,7 +64,7 @@ const MyForm = () => {
         </div>
         <div className="form-section">
           <label htmlFor="endDate" className="form-label">
-            End Date
+            <i>End Date:</i>
           </label>
           <Controller
             as={

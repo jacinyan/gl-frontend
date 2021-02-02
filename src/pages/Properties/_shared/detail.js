@@ -1,6 +1,10 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import { Card, Col, Row, Image, ListGroup, Container } from "react-bootstrap";
+import { Card, Col, Row, Image, ListGroup, Container, Button } from "react-bootstrap";
+import Panel from '../../../common/Panel'
+
+import PubSub from 'pubsub-js'
+
 
 const Detail = props => {
 
@@ -10,6 +14,8 @@ const Detail = props => {
 
     const category = () => category_id === 1 ? 'birthday' : category_id === 2 ? 'corporate' : 'wedding'
 
+    // inform Panel comp
+    PubSub.publish('title', title)
 
     return (
         <>
@@ -23,7 +29,7 @@ const Detail = props => {
                     <Col md={6}>
                         <Image src={featured_image} alt={title} fluid />
                     </Col>
-                    <Col md={3}>
+                    <Col md={4}>
                         <ListGroup variant='flush'>
                             <ListGroup.Item>
                                 <h2>{title}</h2>
@@ -36,26 +42,13 @@ const Detail = props => {
                             </ListGroup.Item>
                         </ListGroup>
                     </Col>
-                    <Col md={3}>
-                        <Card>
-                            <ListGroup variant='flush'>
+                    <Col md={2}>
+                        <Card className='border-0'>
+                            <ListGroup variant='flush' className="text-center">
                                 <ListGroup.Item>
                                     <Row>
                                         <Col>
-                                            Rate:
-                                        </Col>
-                                        <Col>
-                                            <strong>${rate}</strong>
-                                        </Col>
-                                    </Row>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Row>
-                                        <Col>
-                                            Pick a date
-                                        </Col>
-                                        <Col>
-                                            <strong>dd/mm/yy</strong>
+                                            <Button varian="success">PICK A DATE</Button>
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
@@ -64,6 +57,7 @@ const Detail = props => {
                     </Col>
                 </Row>
             </Container>
+           <Panel />
         </>
     )
 }
