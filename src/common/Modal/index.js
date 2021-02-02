@@ -5,19 +5,13 @@ import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from './index.module.css'
-import PubSub from 'pubsub-js'
 
-let receivedTitle = ''
 
-const Panel = () => {
+const Modal = ({title}) => {
   const { handleSubmit, register, watch, control } = useForm();
   const { startDate, endDate } = watch(["startDate", "endDate"]);
   const [submittedData, setSubmittedData] = React.useState({});
 
-  PubSub.subscribe('title', (_, title) => {
-    console.log(title);
-    receivedTitle = title
-  })
 
   const onSubmit = (data) => {
     setSubmittedData(data);
@@ -27,10 +21,10 @@ const Panel = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.title}>
-          <label htmlFor="title"><i ><strong>{receivedTitle}</strong></i></label>
-          <input id="title" name="title" type="text" ref={register} readOnly value={receivedTitle} hidden />
+          <label htmlFor="title"><i ><strong>{title}</strong></i></label>
+          <input id="title" name="title" type="text" ref={register} readOnly value={title} hidden />
         </div>
-        <div className={styles.from}>from</div>
+        <div className={styles.from}>from&nbsp;</div>
         <div className={styles.clearFix}>
           <div className={styles.startDate}>
             <Controller
@@ -41,17 +35,16 @@ const Panel = () => {
                   timeFormat="HH:mm"
                   timeIntervals={15}
                   timeCaption="time"
-                  dateFormat="dd/MM/yyyy, h:mm aa"
+                  dateFormat="dd/MM/yy, h:mm aa"
                   minDate={new Date()}
                   minTime={setHours(setMinutes(new Date(), 0), 6)}
                   maxTime={setHours(setMinutes(new Date(), 30), 23)}
                   selectsStart
                   startDate={startDate}
                   endDate={endDate}
-                  className="red-border"
                   isClearable
                   shouldCloseOnSelect={false}
-                  todayButton="Today"
+                  todayButton="Today"                  
                 />
               }
               name="startDate"
@@ -60,7 +53,7 @@ const Panel = () => {
               defaultValue=''
             />
           </div>
-          <div className={styles.to}>to</div>
+          <div className={styles.to}>&nbsp;to&nbsp;</div>
           <div className={styles.endDate}>
             <Controller
               as={
@@ -70,14 +63,13 @@ const Panel = () => {
                   timeFormat="HH:mm"
                   timeIntervals={15}
                   timeCaption="time"
-                  dateFormat="dd/MM/yyyy, h:mm aa"
+                  dateFormat="dd/MM/yy, h:mm aa"
                   minDate={startDate || new Date()}
                   minTime={startDate || new Date()}
                   maxTime={setHours(setMinutes(new Date(), 30), 23) || new Date()}
                   selectsEnd
                   startDate={startDate}
                   endDate={endDate}
-                  className="red-border"
                   isClearable
                   shouldCloseOnSelect={false}
                   todayButton="Today"
@@ -98,4 +90,4 @@ const Panel = () => {
   );
 };
 
-export default Panel;
+export default Modal;

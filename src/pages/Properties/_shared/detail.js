@@ -1,12 +1,10 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { Link } from "react-router-dom";
 import { Card, Col, Row, Image, ListGroup, Container, Button } from "react-bootstrap";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
-import Panel from '../../../common/Panel'
-
-import PubSub from 'pubsub-js'
+import Modal from '../../../common/Modal'
 
 
 const Detail = props => {
@@ -18,9 +16,9 @@ const Detail = props => {
     const category = () => category_id === 1 ? 'birthday' : category_id === 2 ? 'corporate' : 'wedding'
 
     // inform Panel comp
-    useEffect(() => {
-        PubSub.publish('title', title)
-    }, [title])
+    // useEffect(() => {
+    //     PubSub.publish('title', title)
+    // }, [title])
   
 
     return (
@@ -35,7 +33,7 @@ const Detail = props => {
                     <Col md={6}>
                         <Image src={featured_image} alt={title} fluid />
                     </Col>
-                    <Col md={4}>
+                    <Col md={3}>
                         <ListGroup variant='flush'>
                             <ListGroup.Item>
                                 <h2>{title}</h2>
@@ -48,15 +46,20 @@ const Detail = props => {
                             </ListGroup.Item>
                         </ListGroup>
                     </Col>
-                    <Col md={2}>
+                    <Col md={3}>
                         <Card className='border-0'>
                             <ListGroup variant='flush' className="text-center">
                                 <ListGroup.Item>
                                     <Row>
                                         <Col>
-                                            <Popup trigger={<Button varian="success">PICK A DATE</Button>} 
+                                            <strong>READY TO BOOK?</strong>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <Popup trigger={<Button variant="success">PICK A DATE</Button>} 
                                                 modal>
-                                                <Panel />
+                                                <Modal title={title}/>
                                             </Popup>
                                         </Col>
                                     </Row>
