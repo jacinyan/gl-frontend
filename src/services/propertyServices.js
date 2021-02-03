@@ -1,7 +1,7 @@
 export const getProperties = async (category_id) => {
     let token = "Bearer " + localStorage.getItem("jwt")
 
-    const response = await fetch('http://localhost:3000/properties', {
+    const response = await fetch('http://localhost:3000/api/properties', {
         headers: {
             'Authorization': token
         }

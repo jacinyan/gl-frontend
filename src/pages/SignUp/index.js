@@ -34,7 +34,7 @@ const SignUp = () => {
         }
 
 
-        fetch('http://localhost:3000/auth/sign_up', requestOptions)
+        fetch('http://localhost:3000/api/auth/sign_up', requestOptions)
             .then(response => {
                 if (response.ok) {
                     return response.json();

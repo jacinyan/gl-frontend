@@ -1,7 +1,7 @@
 export const getBookings = async (username) => {
     let token = "Bearer " + localStorage.getItem("jwt")
 
-    const response = await fetch('http://localhost:3000/bookings', {
+    const response = await fetch('http://localhost:3000/api/bookings', {
         headers: {
             'Authorization': token
         }

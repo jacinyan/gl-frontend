@@ -30,7 +30,7 @@ const Login = () => {
             body: JSON.stringify(request)
         }
 
-        fetch('http://localhost:3000/auth/login', requestOptions)
+        fetch('http://localhost:3000/api/auth/login', requestOptions)
         .then(response => {
             if (response.ok) {
                 return response.json();
