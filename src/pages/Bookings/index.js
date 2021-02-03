@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useContext } from 'react'
-// import Table from '../../common/Table'
+import Table from '../../common/Table'
 
 import bookingReducer from '../../utils/reducers/bookingReducer'
 import { getBookings } from '../../services/bookingServices'
@@ -54,6 +54,7 @@ const Bookings = (props) => {
                             :
                             null
             }
+            <Table />
         </>
     )
 }

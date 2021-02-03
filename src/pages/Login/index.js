@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import {UserContext} from '../../utils/context/userContext'
+import { UserContext } from '../../utils/context/userContext'
+import { Form, Row, Col, Button } from 'react-bootstrap'
+import FormContainer from '../../common/FormContainer'
 
 
 const Login = () => {
@@ -10,7 +12,7 @@ const Login = () => {
 
     const { dispatch } = useContext(UserContext)
 
-    const { register, handleSubmit, errors, formState } = useForm({mode: "onChange"});
+    const { register, handleSubmit, errors } = useForm({ mode: "onChange" });
 
     // Server Errors handling
     const [serverErrors, setServerErrors] = useState('')
@@ -20,7 +22,7 @@ const Login = () => {
         const email = formData.email
         const password = formData.password
 
-        const request =  { "email": email, "password": password } 
+        const request = { "email": email, "password": password }
 
         const requestOptions = {
             method: 'POST',
@@ -31,70 +33,79 @@ const Login = () => {
         }
 
         fetch('http://localhost:3000/api/auth/login', requestOptions)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw response;
-        })
-        .then(result => {
-            dispatch({
-                type: "USER_LOGIN_SUCCESS",
-                payload: {
-                    user: result.username,
-                    jwt : result.jwt
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
                 }
+                throw response;
             })
-          history.push('/')
-          })
-        .catch(error => {
-            const detail = error.json()
-            detail.then(message => {
-                console.log(message);
-                if (message.error) {
-                    setServerErrors(`${message.error}`)
-                }
+            .then(result => {
                 dispatch({
-                    type: "USER_LOGIN_FAIL",
-                    payload: detail
+                    type: "USER_LOGIN_SUCCESS",
+                    payload: {
+                        user: result.username,
+                        jwt: result.jwt
+                    }
                 })
-            });
-          })
+                history.push('/')
+            })
+            .catch(error => {
+                const detail = error.json()
+                detail.then(message => {
+                    console.log(message);
+                    if (message.error) {
+                        setServerErrors(`${message.error}`)
+                    }
+                    dispatch({
+                        type: "USER_LOGIN_FAIL",
+                        payload: detail
+                    })
+                });
+            })
     }
 
     return (
-        <>  
-            <h1 style={{ marginTop: "20vh", marginBottom: "5vh" }}>
-                Banana Management System
-            </h1>
-            {serverErrors ? <p style={{ color: 'red' }}>{'** ' + serverErrors}</p> : null}
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <label htmlFor="email">Email: </label>
+        <FormContainer>
+            <h1 style={{ marginTop: "10vh", marginBottom: "5vh" }}>Log In</h1>
+            {serverErrors ?
+                <div className="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {'** ' + serverErrors}
+                </div>
+                :
+                null}
+            <Form onSubmit={handleSubmit(onSubmit)}>
+
+                <Form.Group controlId="email">
+                    <Form.Label >Email: </Form.Label>
+                    <Form.Control
+                        name="email"
+                        type="email"
+                        ref={register({ required: true })}
+                    />
+                </Form.Group>
+                {errors.email && <><div>&nbsp;*Email is required</div><br /></>}
+
+                <Form.Group controlId="password">
+                    <Form.Label >Password:</Form.Label>
+                    <Form.Control
+                        name="password"
+                        type="password"
+                        ref={register({ required: true })}
+                    />
+                </Form.Group>
+                {errors.password && <div>&nbsp;*Password is required</div>}
                 <br />
-                <input
-                    name="email"
-                    id="email"
-                    type="email"
-                    ref={register({ required: true })}
-                />
-               {errors.email && <span>&nbsp;*Email is required</span>}
-                <br /><br />
-                <label htmlFor="password">Password:</label>
-                <br />
-                <input
-                    name="password"
-                    id="password"
-                    type="password"
-                    ref={register({ required: true })}
-                />
-               {errors.password && <span>&nbsp;*Password is required</span>}
-                <br />
-                <br />
-                <button type="submit" disabled={!formState.isValid} >
+                <Button type="submit" variant='primary'>
                     Sign In
-                </button>
-            </form>
-        </>
+                </Button>
+            </Form>
+            <Row className='py-3'>
+                <Col>
+                    New Customer? <Link to='/sign_up'>Let's sign up!</Link>
+                </Col>
+            </Row>
+        </FormContainer>
     )
 }
 
