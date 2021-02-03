@@ -40,10 +40,11 @@ const Login = () => {
                 throw response;
             })
             .then(result => {
+                console.log(result);
                 dispatch({
                     type: "USER_LOGIN_SUCCESS",
                     payload: {
-                        user: result.username,
+                        username: result.username,
                         jwt: result.jwt
                     }
                 })

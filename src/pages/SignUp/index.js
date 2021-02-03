@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { UserContext } from '../../utils/context/userContext'
-import { Form, Row, Col, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import FormContainer from '../../common/FormContainer'
 
 
@@ -48,7 +48,7 @@ const SignUp = () => {
                 dispatch({
                     type: "USER_SIGNUP_SUCCESS",
                     payload: {
-                        user: result.username,
+                        username: result.username,
                         jwt: result.jwt
                     }
                 })

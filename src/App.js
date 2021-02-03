@@ -13,7 +13,7 @@ import userReducer from './utils/reducers/userReducer'
 
 const initialState = {
   isLoggedIn: localStorage.getItem("jwt")? true : false,
-  user: localStorage.getItem("user") || null,
+  username: localStorage.getItem("username") || null,
   jwt: localStorage.getItem("jwt") || null,
   error: null
 };

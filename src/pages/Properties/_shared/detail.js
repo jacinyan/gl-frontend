@@ -9,17 +9,11 @@ import Modal from '../../../common/Modal'
 
 const Detail = props => {
 
-    const { title, category_id, featured_image, rate, description } = props.location.state || {}
+    const { id, title, category_id, featured_image, rate, description, location } = props.location.state || {}
 
     // console.log(props)
 
     const category = () => category_id === 1 ? 'birthday' : category_id === 2 ? 'corporate' : 'wedding'
-
-    // inform Panel comp
-    // useEffect(() => {
-    //     PubSub.publish('title', title)
-    // }, [title])
-  
 
     return (
         <>
@@ -37,6 +31,9 @@ const Detail = props => {
                         <ListGroup variant='flush'>
                             <ListGroup.Item>
                                 <h2>{title}</h2>
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Location: {location}
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 Rate: ${rate}
@@ -59,7 +56,7 @@ const Detail = props => {
                                         <Col>
                                             <Popup trigger={<Button variant="success">PICK A DATE</Button>} 
                                                 modal>
-                                                <Modal title={title}/>
+                                                <Modal propertyId={id} title={title}/>
                                             </Popup>
                                         </Col>
                                     </Row>

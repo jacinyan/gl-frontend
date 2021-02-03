@@ -7,14 +7,33 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from './index.module.css'
 
 
-const Modal = ({title}) => {
+const Modal = ({ title, propertyId }) => {
   const { handleSubmit, register, watch, control } = useForm();
   const { startDate, endDate } = watch(["startDate", "endDate"]);
-  const [submittedData, setSubmittedData] = React.useState({});
+  // const [submittedData, setSubmittedData] = React.useState({});
+
+//   const onSubmit = (data) => {
+//     setSubmittedData(data);
+// };
 
 
-  const onSubmit = (data) => {
-    setSubmittedData(data);
+  const onSubmit = (formData) => {
+        const propertyId = formData.propertyId
+        const startDate = formData.startDate
+        const endDate = formData.endDate;
+
+        const request = { "property_id": propertyId, "start_date": startDate, "end_date": endDate}
+
+        const requestOptions = {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json;charset=utf-8;',
+            }),
+            body: JSON.stringify(request)
+        }
+
+        fetch('http://localhost:3000/api/bookings', requestOptions)
+
   };
 
   return (
@@ -22,7 +41,8 @@ const Modal = ({title}) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.title}>
           <label htmlFor="title"><i ><strong>{title}</strong></i></label>
-          <input id="title" name="title" type="text" ref={register} readOnly value={title} hidden />
+          <input id="propertyId" name="propertyId" type="text" ref={register} readOnly value={propertyId} hidden />
+          {/* <input id="title" name="title" type="text" ref={register} readOnly value={title} hidden /> */}
         </div>
         <div className={styles.from}>from&nbsp;</div>
         <div className={styles.clearFix}>
@@ -44,7 +64,7 @@ const Modal = ({title}) => {
                   endDate={endDate}
                   isClearable
                   shouldCloseOnSelect={false}
-                  todayButton="Today"                  
+                  todayButton="Today"
                 />
               }
               name="startDate"

@@ -4,12 +4,12 @@ export default function userReducer(state, action) {
 	switch (action.type) {
 		case USER_LOGIN_SUCCESS:
 			console.log(action.payload);
-			localStorage.setItem("user", action.payload.user);
+			localStorage.setItem("username", action.payload.username);
 			localStorage.setItem("jwt", action.payload.jwt);
 			return {
 				...state,
 				isLoggedIn: true,
-				user: action.payload.user,
+				username: action.payload.username,
 				jwt: action.payload.jwt
 			}
 		case USER_LOGIN_FAIL:
@@ -26,22 +26,28 @@ export default function userReducer(state, action) {
 			return {
 				...state,
 				isLoggedIn: false,
-				user: null,
+				username: null,
 				jwt: null
 			  }
 		case USER_SIGNUP_SUCCESS:
 			console.log("USER_SIGNUP_SUCCESS");
 			console.log(action.payload);
-			localStorage.setItem("user", action.payload.user);
+			localStorage.setItem("username", action.payload.username);
 			localStorage.setItem("jwt", action.payload.jwt);
 			return {
 				...state,
 				isLoggedIn: true,
-				user: action.payload.user,
+				username: action.payload.username,
 				jwt: action.payload.jwt
 			}
 		case USER_SIGNUP_FAIL:
-			return {}
+			console.log("USER_SIGNUP_FAIL");
+			console.log(action.payload)
+			return {
+				...state,
+				isLoggedIn: false,
+				error: action.payload
+			}
 		default:
 			return state
 	}
