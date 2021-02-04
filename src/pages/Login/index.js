@@ -45,7 +45,8 @@ const Login = () => {
                     type: "USER_LOGIN_SUCCESS",
                     payload: {
                         username: result.username,
-                        jwt: result.jwt
+                        jwt: result.jwt,
+                        user_id: result.user_id
                     }
                 })
                 history.push('/')

@@ -15,6 +15,7 @@ const initialState = {
   isLoggedIn: localStorage.getItem("jwt")? true : false,
   username: localStorage.getItem("username") || null,
   jwt: localStorage.getItem("jwt") || null,
+  user_id: localStorage.getItem("user_id") || null,
   error: null
 };
 

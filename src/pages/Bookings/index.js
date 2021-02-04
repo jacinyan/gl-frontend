@@ -15,7 +15,7 @@ const Bookings = (props) => {
 
     const { state: loggedInState } = useContext(UserContext)
 
-    console.log(loggedInState.username);
+    console.log(loggedInState);
 
     const [state, dispatch] = useReducer(bookingReducer, initialState)
 
@@ -24,8 +24,7 @@ const Bookings = (props) => {
         dispatch({
             type: "BOOKINGS_LIST_REQUEST"
         });
-        console.log(getBookings(loggedInState.username));
-        getBookings(loggedInState.username)
+        getBookings()
             .then((data) => {
                 dispatch({ type: 'BOOKINGS_LIST_REQUEST_SUCCESS', payload: data })
             })
