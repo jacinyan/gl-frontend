@@ -1,9 +1,13 @@
 import React, { useEffect, useReducer, useContext } from 'react'
-import Table from '../../common/Table'
-
 import bookingReducer from '../../utils/reducers/bookingReducer'
 import { getBookings } from '../../services/bookingServices'
 import { UserContext } from '../../utils/context/userContext'
+import { useHistory } from 'react-router-dom'
+import { deleteBooking } from '../../services/bookingServices'
+
+import BootstrapTable from 'react-bootstrap-table-next';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+
 
 const initialState = {
     isLoading: false,
@@ -13,8 +17,10 @@ const initialState = {
 
 const Bookings = (props) => {
 
+    const history = useHistory()
+
     const { state: loggedInState } = useContext(UserContext)
-  
+
     const [state, dispatch] = useReducer(bookingReducer, initialState)
 
     useEffect(() => {
@@ -33,18 +39,62 @@ const Bookings = (props) => {
             })
     }, [loggedInState.jwt, loggedInState.username])
 
+    const columns = [
+        {
+            dataField: 'title',
+            text: 'Title'
+        }, {
+            dataField: 'location',
+            text: 'Location'
+        },
+        {
+            dataField: 'start_date',
+            text: 'Booking Start'
+        }, {
+            dataField: 'end_date',
+            text: 'Booking End'
+        }, {
+            dataField: "id",
+            text: "Cancel Booking",
+            editable: false,
+            formatter: (_, row) => {
+                return (
+                    <button
+                        className="btn btn-danger btn-xs"
+                        onClick={() => handleDelete(row.id)}
+                    >
+                        Cancel
+                    </button>
+                );
+            },
+        }];
+
+    const handleDelete = (id) => {
+        deleteBooking(id).then(() => {
+            dispatch({
+                type: 'BOOKING_DELETE',
+                payload: id
+            })
+        })
+        history.push('/bookings')
+    }
+
     return (
         <>
             <h4>Bookings</h4>
             {
                 state.isLoading ? <h2>Loading...</h2>
-                :
-                state.error !== '' ? <h4>Oops😅, something went wrong</h4>
-                :
-                props.location.state === undefined ?
-                    <Table bookings={state.bookings} />
-                :
-                null
+                    :
+                    state.error !== '' ? <h4>Oops😅, something went wrong</h4>
+                        :
+                        props.location.state === undefined ?
+                            <BootstrapTable
+                                keyField='id'
+                                data={state.bookings}
+                                columns={columns}
+                            />
+                            :
+                            null
             }
 
         </>

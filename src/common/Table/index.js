@@ -59,7 +59,7 @@ const Table = ({ bookings}) => {
   return (
     <BootstrapTable
       keyField='id'
-      data={receivedBookings}
+      data={bookings}
       columns={columns}
     />
   )

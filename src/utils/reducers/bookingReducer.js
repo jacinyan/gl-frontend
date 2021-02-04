@@ -22,9 +22,7 @@ export default function bookingReducer (state, action) {
 			}
 		case BOOKING_DELETE:
 			console.log('BOOKING Delete');
-			console.log(state);
-			console.log(action.payload);
-			const updatedBookings = state.filter((booking) => {
+			const updatedBookings = state.bookings.filter((booking) => {
 				return booking.id !== action.payload
 			})
 			console.log(updatedBookings);
