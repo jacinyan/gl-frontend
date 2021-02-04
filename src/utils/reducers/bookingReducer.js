@@ -1,4 +1,4 @@
-import {BOOKINGS_LIST_REQUEST,BOOKINGS_LIST_REQUEST_SUCCESS, BOOKINGS_LIST_REQUEST_FAIL} from '../constants/bookingConstants'
+import {BOOKINGS_LIST_REQUEST,BOOKINGS_LIST_REQUEST_SUCCESS, BOOKINGS_LIST_REQUEST_FAIL, BOOKING_DELETE} from '../constants/bookingConstants'
 
 export default function bookingReducer (state, action) {
 	switch(action.type) {
@@ -19,6 +19,18 @@ export default function bookingReducer (state, action) {
 				...state,
 				isLoading: false, 
 				error: action.payload
+			}
+		case BOOKING_DELETE:
+			console.log('BOOKING Delete');
+			console.log(state);
+			console.log(action.payload);
+			const updatedBookings = state.filter((booking) => {
+				return booking.id !== action.payload
+			})
+			console.log(updatedBookings);
+			return {
+				...state,
+				bookings: updatedBookings
 			}
 		default: 
 			return state

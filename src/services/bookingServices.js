@@ -12,11 +12,24 @@ export const getBookings = async () => {
     } catch (error) {
         throw error
     }
-
-
 }
 
-export const createBooking = async () => {
+export const createBooking = async (request) => {
+    let token = "Bearer " + localStorage.getItem("jwt")
+
+    try {
+        fetch('http://localhost:3000/api/bookings', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json;charset=utf-8;',
+                'Authorization': token
+            }),
+            body: JSON.stringify(request)
+        })
+    } catch (error) {
+        throw error
+    }
+
 
 }
 
@@ -24,6 +37,17 @@ export const updateBooking = async () => {
 
 }
 
-export const deleteBooking = async () => {
+export const deleteBooking = async (id) => {
+    let token = "Bearer " + localStorage.getItem("jwt")
 
+    try {
+        fetch(`http://localhost:3000/api/bookings/${id}`, {
+            method: 'DELETE',
+            headers: new Headers({
+                'Authorization': token
+            })
+        })
+    } catch (error) {
+        throw error
+    }
 }

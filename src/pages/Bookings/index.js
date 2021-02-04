@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useContext } from 'react'
-import BookingsTable from '../../common/Table'
+import Table from '../../common/Table'
 
 import bookingReducer from '../../utils/reducers/bookingReducer'
 import { getBookings } from '../../services/bookingServices'
@@ -14,9 +14,7 @@ const initialState = {
 const Bookings = (props) => {
 
     const { state: loggedInState } = useContext(UserContext)
-
-    console.log(loggedInState);
-
+  
     const [state, dispatch] = useReducer(bookingReducer, initialState)
 
     useEffect(() => {
@@ -26,6 +24,7 @@ const Bookings = (props) => {
         });
         getBookings()
             .then((data) => {
+                console.log(data);
                 dispatch({ type: 'BOOKINGS_LIST_REQUEST_SUCCESS', payload: data })
             })
             .catch((error) => {
@@ -43,7 +42,7 @@ const Bookings = (props) => {
                 state.error !== '' ? <h4>Oops😅, something went wrong</h4>
                 :
                 props.location.state === undefined ?
-                    <BookingsTable bookings={state.bookings} />
+                    <Table bookings={state.bookings} />
                 :
                 null
             }

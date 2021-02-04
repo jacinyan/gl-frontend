@@ -7,46 +7,26 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from './index.module.css'
 
 import {UserContext} from '../../utils/context/userContext'
+import {createBooking} from '../../services/bookingServices'
 
 
 const Modal = ({ title, propertyId }) => {
 
   const {state: loggedInState} = useContext(UserContext)
-
   let {user_id: userId} = loggedInState;
 
   const { handleSubmit, register, watch, control } = useForm();
   const { startDate, endDate } = watch(["startDate", "endDate"]);
   
-  // const [submittedData, setSubmittedData] = React.useState({});
-
-//   const onSubmit = (data) => {
-//     setSubmittedData(data);
-// };
-
-
   const onSubmit = (formData) => {
         const propertyId = formData.propertyId
         const startDate = formData.startDate
         const endDate = formData.endDate;
-
         userId = formData.userId
 
         const request = { "user_id": userId, "property_id": propertyId, "start_date": startDate, "end_date": endDate}
 
-        let token = "Bearer " + localStorage.getItem("jwt")
-
-        const requestOptions = {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json;charset=utf-8;',
-                'Authorization': token
-            }),
-            body: JSON.stringify(request)
-        }
-
-        fetch('http://localhost:3000/api/bookings', requestOptions)
-
+        createBooking(request)
   };
 
   return (
@@ -56,7 +36,6 @@ const Modal = ({ title, propertyId }) => {
           <label htmlFor="title"><i ><strong>{title}</strong></i></label>
           <input id="userId" name="userId" type="text" ref={register} readOnly value={userId} hidden />
           <input id="propertyId" name="propertyId" type="text" ref={register} readOnly value={propertyId} hidden />
-          {/* <input id="title" name="title" type="text" ref={register} readOnly value={title} hidden /> */}
         </div>
         <div className={styles.from}>from&nbsp;</div>
         <div className={styles.clearFix}>
@@ -118,8 +97,6 @@ const Modal = ({ title, propertyId }) => {
         </div>
         <button type="submit" className={styles.button}>Submit</button>
       </form>
-      {/* <p>Submitted data:</p>
-      <pre>{JSON.stringify(submittedData, null, 2)}</pre> */}
     </>
   );
 };
