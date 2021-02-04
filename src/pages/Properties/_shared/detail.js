@@ -54,9 +54,14 @@ const Detail = props => {
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <Popup trigger={<Button variant="success">PICK A DATE</Button>} 
+                                            <Popup trigger={<Button variant="success">PICK A DATE</Button>}
                                                 modal>
-                                                <Modal propertyId={id} title={title}/>
+                                                {close => (
+                                                    <>
+                                                        <button className="close" onClick={close}>&times;</button>
+                                                        <Modal propertyId={id} title={title} finished={() => {close()}}/>
+                                                    </>
+                                                )}
                                             </Popup>
                                         </Col>
                                     </Row>

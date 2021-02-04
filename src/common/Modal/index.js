@@ -10,7 +10,7 @@ import {UserContext} from '../../utils/context/userContext'
 import {createBooking} from '../../services/bookingServices'
 
 
-const Modal = ({ title, propertyId }) => {
+const Modal = ({ title, propertyId, finished }) => {
 
   const {state: loggedInState} = useContext(UserContext)
   let {user_id: userId} = loggedInState;
@@ -27,6 +27,8 @@ const Modal = ({ title, propertyId }) => {
         const request = { "user_id": userId, "property_id": propertyId, "start_date": startDate, "end_date": endDate}
 
         createBooking(request)
+
+        finished()
   };
 
   return (
