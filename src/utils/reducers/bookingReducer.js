@@ -25,7 +25,6 @@ export default function bookingReducer (state, action) {
 			const updatedBookings = state.bookings.filter((booking) => {
 				return booking.id !== action.payload
 			})
-			console.log(updatedBookings);
 			return {
 				...state,
 				bookings: updatedBookings

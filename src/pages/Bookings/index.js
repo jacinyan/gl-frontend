@@ -7,6 +7,7 @@ import { deleteBooking } from '../../services/bookingServices'
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import { Container, Row} from 'react-bootstrap'
 
 
 const initialState = {
@@ -81,18 +82,23 @@ const Bookings = (props) => {
 
     return (
         <>
-            <h4>Bookings</h4>
+            <h4>MyBookings</h4>
             {
                 state.isLoading ? <h2>Loading...</h2>
                     :
                     state.error !== '' ? <h4>Oops😅, something went wrong</h4>
                         :
                         props.location.state === undefined ?
-                            <BootstrapTable
-                                keyField='id'
-                                data={state.bookings}
-                                columns={columns}
-                            />
+                            <Container style={{ paddingTop: '3vh' }}>
+                                <Row>
+                                    <BootstrapTable
+                                        keyField='id'
+                                        data={state.bookings}
+                                        columns={columns}
+                                        striped={true} hover={true}
+                                    />
+                                </Row>
+                            </Container>
                             :
                             null
             }
