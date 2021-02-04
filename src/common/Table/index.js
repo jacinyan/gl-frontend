@@ -2,7 +2,8 @@ import React from 'react'
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
-const columns = [{
+const columns = [
+{
   dataField: 'title',
   text: 'Title'
 }, {
@@ -17,4 +18,4 @@ const columns = [{
   text: 'Booking End'
 }];
 
-export default ({ bookings }) => <BootstrapTable keyField='id' data={bookings} columns={columns} />
+export default ({ bookings }) => <BootstrapTable keyField='start_date' data={bookings} columns={columns} />

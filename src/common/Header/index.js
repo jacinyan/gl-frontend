@@ -37,7 +37,7 @@ const Header = ({ state }) => {
                                         <Nav.Link>Properties</Nav.Link>
                                     </LinkContainer>
                                     <LinkContainer to="/bookings">
-                                        <Nav.Link>Bookings</Nav.Link>
+                                        <Nav.Link>MyBookings</Nav.Link>
                                     </LinkContainer>
                                     <Nav.Link onClick={logoutHandler}><i className='fas fa-sign-out-alt'></i>Log out
                                     </Nav.Link>

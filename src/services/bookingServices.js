@@ -1,4 +1,4 @@
-export const getBookings = async (username) => {
+export const getBookings = async () => {
     let token = "Bearer " + localStorage.getItem("jwt")
 
     try {
@@ -8,12 +8,7 @@ export const getBookings = async (username) => {
             }
         })
         const data = await response.json()
-        console.log(data);
-        const bookings = data.filter((booking) => {
-            return booking.username === username
-        })
-        console.log(bookings);
-        return bookings
+        return data
     } catch (error) {
         throw error
     }
