@@ -8,6 +8,8 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp';
 import Bookings from './pages/Bookings'
 import Footer from './common/Footer';
+import SearchResults from './pages/SearchResults'
+
 import { UserContext } from './utils/context/userContext'
 import userReducer from './utils/reducers/userReducer'
 
@@ -30,6 +32,7 @@ const App = () => {
           <Container>
             <Switch>
               <Route exact path='/' component={Home} />
+              <Route path='/search/:keyword' component={SearchResults} />
               <Route path='/properties' component={PropertiesScreen} />
               <Route path='/bookings' render={(props) => <Bookings {...props}/>} />
               <Route path='/login' render={(props) => <Login {...props}/> } />

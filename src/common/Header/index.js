@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { useHistory} from 'react-router-dom'
+import { useHistory, Route} from 'react-router-dom'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 
 import { UserContext } from '../../utils/context/userContext'
+import SearchBox from '../SearchBox'
 
 
 const Header = ({ state }) => {
@@ -19,7 +20,6 @@ const Header = ({ state }) => {
         history.push('/login')
     }
 
-
     return (
         <header>
             <Navbar bg="dark" expand="lg" collapseOnSelect variant="pills">
@@ -29,6 +29,7 @@ const Header = ({ state }) => {
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
+                        <Route render={(props) => <SearchBox history={props.history}/>}/>
                         <Nav className="ml-auto">
                             {state ?
                                 <>

@@ -97,7 +97,7 @@ const Modal = ({ title, propertyId, finished }) => {
             />
           </div>
         </div>
-        <button type="submit" className={styles.button}>Create Booking</button>
+        <button type="submit" className={styles.button}>CREATE BOOKING</button>
       </form>
     </>
   );
