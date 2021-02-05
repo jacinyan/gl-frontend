@@ -24,7 +24,7 @@ export const searchProperties = async (keyword) => {
     let token = "Bearer " + localStorage.getItem("jwt")
 
     try {
-        const response = await fetch('http://localhost:3000/api/properties', {
+        const response = await fetch(`http://localhost:3000/api/properties?keyword=${keyword}`, {
             headers: {
                 'Authorization': token
             }
@@ -40,7 +40,7 @@ export const searchProperties = async (keyword) => {
 }
 
 export const createProperty = async () => {
-
+    
 }
 
 export const updateProperty = async () => {

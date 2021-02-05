@@ -33,7 +33,6 @@ export const createBooking = async (request) => {
         throw error
     }
 
-
 }
 
 export const updateBooking = async () => {

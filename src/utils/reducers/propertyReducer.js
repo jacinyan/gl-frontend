@@ -21,6 +21,7 @@ export default function propertyReducer (state, action) {
 				error: action.payload
 			}
 		case PROPERTIES_SEARCH:
+			console.log(action.payload);
 			return {
 				...state,
 				isLoading: false,
