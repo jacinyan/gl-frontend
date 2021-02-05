@@ -7,8 +7,11 @@ export const getBookings = async () => {
                 'Authorization': token
             }
         })
-        const data = await response.json()
-        return data
+        if (response.ok) {
+            const bookings = await response.json()
+            return bookings
+        }
+        throw response
     } catch (error) {
         throw error
     }
