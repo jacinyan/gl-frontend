@@ -39,7 +39,7 @@ const Modal = ({ title, propertyId, finished }) => {
           <input id="userId" name="userId" type="text" ref={register} readOnly value={userId} hidden />
           <input id="propertyId" name="propertyId" type="text" ref={register} readOnly value={propertyId} hidden />
         </div>
-        <div className={styles.from}>from&nbsp;</div>
+        <div className={styles.from}><strong>From&nbsp;</strong></div>
         <div className={styles.clearFix}>
           <div className={styles.startDate}>
             <Controller
@@ -68,7 +68,7 @@ const Modal = ({ title, propertyId, finished }) => {
               defaultValue=''
             />
           </div>
-          <div className={styles.to}>&nbsp;to&nbsp;</div>
+          <div className={styles.to}><strong>&nbsp;To&nbsp;</strong></div>
           <div className={styles.endDate}>
             <Controller
               as={
@@ -97,7 +97,7 @@ const Modal = ({ title, propertyId, finished }) => {
             />
           </div>
         </div>
-        <button type="submit" className={styles.button}>Submit</button>
+        <button type="submit" className={styles.button}>Create Booking</button>
       </form>
     </>
   );

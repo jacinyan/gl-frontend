@@ -45,11 +45,12 @@
 .button {
     display: block;
     box-sizing: border-box;
-    width: 50%;
-    border-radius: 4px;
+    width: 30%;
+    border-radius: 10px;
     border: 1px solid white;
     padding: 10px 15px;
     margin: 20px auto ;
     font-size: 14px;
+    background-color: rgba(235, 104, 100, 1)
   }
 

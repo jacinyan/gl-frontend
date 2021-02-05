@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
 
@@ -38,17 +38,17 @@ const Header = ({ state }) => {
                                     <LinkContainer to="/properties">
                                         <Nav.Link>Properties</Nav.Link>
                                     </LinkContainer>
-                                    <NavDropdown title={username}>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/profile">
-                                                <Nav.Link>MyProfile</Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/bookings">
-                                                <Nav.Link>MyBookings</Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
+                                    <NavDropdown title={username} id="basic-nav-dropdown">
+                                        <LinkContainer to="/profile">
+                                            <NavDropdown.Item>
+                                               MyProfile
+                                            </NavDropdown.Item>
+                                        </LinkContainer>
+                                        <LinkContainer to="/bookings">
+                                            <NavDropdown.Item>
+                                                MyBookings
+                                            </NavDropdown.Item>
+                                        </LinkContainer>
                                     </NavDropdown>
                                     <Nav.Link onClick={logoutHandler}><i className='fas fa-sign-out-alt'></i>Log out
                                     </Nav.Link>

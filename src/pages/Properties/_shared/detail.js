@@ -15,6 +15,9 @@ const Detail = props => {
 
     const category = () => category_id === 1 ? 'birthday' : category_id === 2 ? 'corporate' : 'wedding'
 
+    const contentStyle = { background: '#fff' };
+    const overlayStyle = { background: 'rgba(255,255,255,0.5)' };
+
     return (
         <>
             <Container>
@@ -55,11 +58,11 @@ const Detail = props => {
                                     <Row>
                                         <Col>
                                             <Popup trigger={<Button variant="success">PICK A DATE</Button>}
-                                                modal>
+                                                modal {...{ contentStyle, overlayStyle}}>
                                                 {close => (
                                                     <>
                                                         <button className="close" onClick={close}>&times;</button>
-                                                        <Modal propertyId={id} title={title} finished={() => {close()}}/>
+                                                        <Modal propertyId={id} title={title} finished={() => { close() }} />
                                                     </>
                                                 )}
                                             </Popup>
