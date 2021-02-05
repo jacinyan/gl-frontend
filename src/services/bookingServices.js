@@ -21,7 +21,7 @@ export const createBooking = async (request) => {
     let token = "Bearer " + localStorage.getItem("jwt")
 
     try {
-        fetch('http://localhost:3000/api/bookings', {
+        const response = fetch('http://localhost:3000/api/bookings', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json;charset=utf-8;',
@@ -29,6 +29,11 @@ export const createBooking = async (request) => {
             }),
             body: JSON.stringify(request)
         })
+        if (response.ok) {
+            const booking = await response.json()
+            return booking
+        }
+        throw response
     } catch (error) {
         throw error
     }

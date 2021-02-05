@@ -84,7 +84,7 @@ const SignUp = () => {
             </h1>
             {serverErrors ?
                 <div className="alert alert-danger alert-dismissible fade show">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <button type="button" className="close" data-dismiss="alert">&times;</button>
                     {'** ' + serverErrors}
                 </div>
                 :
@@ -129,7 +129,7 @@ const SignUp = () => {
                         })}
                     />
                 </Form.Group>
-                {errors.password && <><div>&nbsp;*Password is required</div><br /></>}
+                {errors.password && <><div>&nbsp;{errors.password.message}</div><br /></>}
 
                 <Form.Group controlId="password_confirmation">
                     <Form.Label>Password Confirmation:</Form.Label>

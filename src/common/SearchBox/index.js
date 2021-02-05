@@ -6,7 +6,7 @@ const SearchBox = ({ history }) => {
 
     const [keyword, setKeyword] = useState('')
 
-    const submitHandler = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         if (keyword.trim()) {
             history.push(`/search/${keyword}`)
@@ -16,7 +16,7 @@ const SearchBox = ({ history }) => {
     }
 
     return (
-        <Form onSubmit={submitHandler} inline>
+        <Form onSubmit={handleSubmit} inline>
             <Form.Control type="text" name="q" onChange={e => setKeyword(e.target.value)} placeholder='Search property...' className='mr-sm-2 ml-sm-5'>
             </Form.Control>
             <Button type='submit' variant='outline-success' className='p-2'>

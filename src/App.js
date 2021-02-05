@@ -13,6 +13,10 @@ import SearchResults from './pages/SearchResults'
 import { UserContext } from './utils/context/userContext'
 import userReducer from './utils/reducers/userReducer'
 
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const initialState = {
   isLoggedIn: localStorage.getItem("jwt")? true : false,
   username: localStorage.getItem("username") || null,
@@ -26,6 +30,8 @@ const App = () => {
   const [state, dispatch] = useReducer(userReducer, initialState)
 
   return (
+    <>
+    <ToastContainer />
     <UserContext.Provider value={{ state, dispatch }}>
       <Header state={state.isLoggedIn}/>  
         <main className='py-3'>
@@ -43,6 +49,7 @@ const App = () => {
         </main>
       <Footer />
     </UserContext.Provider>
+    </>
   );
 }
 

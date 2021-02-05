@@ -16,7 +16,7 @@ export const getProperties = async (category_id) => {
         }
         throw response
     } catch (error) {
-        throw error
+        throw error 
     }
 }
 

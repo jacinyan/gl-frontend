@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext} from "react";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import setHours from "date-fns/setHours";
@@ -6,30 +6,58 @@ import setMinutes from "date-fns/setMinutes";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from './index.module.css'
 
-import {UserContext} from '../../utils/context/userContext'
-import {createBooking} from '../../services/bookingServices'
+import { UserContext } from '../../utils/context/userContext'
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-const Modal = ({ title, propertyId, finished }) => {
+const Modal = ({ title, propertyId, finished}) => {
 
-  const {state: loggedInState} = useContext(UserContext)
-  let {user_id: userId} = loggedInState;
+  const { state: loggedInState } = useContext(UserContext)
+  let { user_id: userId } = loggedInState;
 
   const { handleSubmit, register, watch, control } = useForm();
   const { startDate, endDate } = watch(["startDate", "endDate"]);
-  
+
   const onSubmit = (formData) => {
-        const propertyId = formData.propertyId
-        const startDate = formData.startDate
-        const endDate = formData.endDate;
-        userId = formData.userId
+    const propertyId = formData.propertyId
+    const startDate = formData.startDate
+    const endDate = formData.endDate;
+    userId = formData.userId
 
-        const request = { "user_id": userId, "property_id": propertyId, "start_date": startDate, "end_date": endDate}
+    const request = { "user_id": userId, "property_id": propertyId, "start_date": startDate, "end_date": endDate }
 
-        createBooking(request)
+    const requestOptions = {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json;charset=utf-8;',
+        'Authorization': "Bearer " + localStorage.getItem("jwt")
+      }),
+      body: JSON.stringify(request)
+    }
 
+    fetch('http://localhost:3000/api/bookings', requestOptions)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw response;
+      })
+      .then(() => {
+        toast.success('Booking has been added!');
         finished()
+      })
+      .catch(error => {
+        const detail = error.json()
+        detail.then(messages=>{
+            messages.map((message) => {
+              toast.error(message)
+            })
+        })
+      })
   };
+
+
 
   return (
     <>
@@ -60,6 +88,7 @@ const Modal = ({ title, propertyId, finished }) => {
                   isClearable
                   shouldCloseOnSelect={false}
                   todayButton="Today"
+                  rules={{ required: true }}
                 />
               }
               name="startDate"
@@ -88,6 +117,7 @@ const Modal = ({ title, propertyId, finished }) => {
                   isClearable
                   shouldCloseOnSelect={false}
                   todayButton="Today"
+                  rules={{ required: true }}
                 />
               }
               name="endDate"

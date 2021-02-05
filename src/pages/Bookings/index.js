@@ -75,7 +75,7 @@ const Bookings = (props) => {
     const handleDelete = (id) => {
         deleteBooking(id).then(() => {
             dispatch({
-                type: 'BOOKING_DELETE',
+                type: 'BOOKING_DELETE_SUCCESS',
                 payload: id
             })
         })
