@@ -96,7 +96,7 @@ const Bookings = (props) => {
             formatter: (_, row) => {
                 return (
                     <button
-                        className="btn btn-danger btn-xs"
+                        className="btn btn-primary btn-xs"
                         onClick={() => handleDelete(row.id)}
                     >
                         Confirm?
@@ -158,7 +158,7 @@ const Bookings = (props) => {
                                 </Row>
                                 <Row>
                                     <Col md={{ span: 3, offset: 10 }}>
-                                        <Popup trigger={<Button variant="success">PURCHASE?</Button>}
+                                        <Popup trigger={<Button variant="info">PURCHASE?</Button>}
                                             modal {...{ contentStyle, overlayStyle }}>
                                             <Checkout />
                                         </Popup>
