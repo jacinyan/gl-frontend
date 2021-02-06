@@ -10,6 +10,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import { Container, Row} from 'react-bootstrap'
+import Checkout from '../../Checkout'
 
 
 const initialState = {
@@ -110,7 +111,7 @@ const Bookings = (props) => {
                             :
                             null
             }
-
+            <Checkout />
         </>
     )
 }
