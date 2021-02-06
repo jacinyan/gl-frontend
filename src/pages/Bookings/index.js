@@ -15,6 +15,9 @@ import Checkout from '../../Checkout'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const initialState = {
     isLoading: false,
@@ -44,29 +47,47 @@ const Bookings = (props) => {
                 dispatch({ type: 'BOOKINGS_LIST_REQUEST_SUCCESS', payload: data })
             })
             .catch((error) => {
-                console.log(error)
-                dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error })
+                toast.warning(error.message)
+                dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error.message })
             })
     }, [loggedInState.jwt, loggedInState.username])
 
     const columns = [
         {
             dataField: 'title',
-            text: 'Title'
+            text: 'Title',
+            headerStyle: (colum, colIndex) => {
+                return { width: '10%', textAlign: 'center' };
+              }
         }, {
             dataField: 'location',
-            text: 'Location'
+            text: 'Location',
+            headerStyle: (colum, colIndex) => {
+                return { width: '20%', textAlign: 'center' };
+              }
         },
         {
             dataField: 'start_date',
-            text: 'Booking Start'
+            text: 'Booking Start',
+            sort: true,
+            headerStyle: (colum, colIndex) => {
+                return { width: '25%', textAlign: 'center' };
+              }
         }, {
             dataField: 'end_date',
-            text: 'Booking End'
+            text: 'Booking End',
+            sort: true,
+            headerStyle: (colum, colIndex) => {
+                return { width: '25%', textAlign: 'center' };
+              }
         },
         {
             dataField: 'total',
-            text: 'Sub Total'
+            text: 'Sub Total',
+            sort: true,
+            headerStyle: (colum, colIndex) => {
+                return { width: '10%', textAlign: 'center' };
+              }
         },
         {
             dataField: "id",
@@ -82,7 +103,29 @@ const Bookings = (props) => {
                     </button>
                 );
             },
+            headerStyle: (colum, colIndex) => {
+                return { width: '10%', textAlign: 'center' };
+              }
         }];
+
+        paginationFactory({
+            page: 2,
+            sizePerPage: 5,
+            lastPageText: '>>',
+            firstPageText: '<<',
+            nextPageText: '>',
+            prePageText: '<',
+            showTotal: true,
+            alwaysShowAllBtns: true,
+            onPageChange: function (page, sizePerPage) {
+              console.log('page', page);
+              console.log('sizePerPage', sizePerPage);
+            },
+            onSizePerPageChange: function (page, sizePerPage) {
+              console.log('page', page);
+              console.log('sizePerPage', sizePerPage);
+            }
+          });   
 
     const handleDelete = (id) => {
         deleteBooking(id).then(() => {

@@ -13,7 +13,8 @@ export const getBookings = async () => {
         }
         throw response
     } catch (error) {
-        throw error
+        console.log(error);
+        throw new Error('Your token has expired, please log in again')
     }
 }
 
