@@ -9,7 +9,11 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
-import { Container, Row} from 'react-bootstrap'
+import { Container, Row, Button, Col } from 'react-bootstrap'
+import Checkout from '../../Checkout'
+
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 
 const initialState = {
@@ -17,6 +21,9 @@ const initialState = {
     error: '',
     bookings: []
 }
+
+const contentStyle = { background: '#fff' };
+const overlayStyle = { background: 'rgba(255,255,255,0.5)' };
 
 const Bookings = (props) => {
 
@@ -59,11 +66,11 @@ const Bookings = (props) => {
         },
         {
             dataField: 'total',
-            text: 'Sum'
+            text: 'Sub Total'
         },
         {
             dataField: "id",
-            text: "Cancel Booking",
+            text: "Cancel",
             editable: false,
             formatter: (_, row) => {
                 return (
@@ -71,7 +78,7 @@ const Bookings = (props) => {
                         className="btn btn-danger btn-xs"
                         onClick={() => handleDelete(row.id)}
                     >
-                        Cancel
+                        Confirm?
                     </button>
                 );
             },
@@ -103,8 +110,16 @@ const Bookings = (props) => {
                                         data={state.bookings}
                                         columns={columns}
                                         striped={true} hover={true}
-                                        pagination={ paginationFactory() } 
+                                        pagination={paginationFactory()}
                                     />
+                                </Row>
+                                <Row>
+                                    <Col md={{ span: 3, offset: 10 }}>
+                                        <Popup trigger={<Button variant="success">PURCHASE?</Button>}
+                                            modal {...{ contentStyle, overlayStyle }}>
+                                            <Checkout />
+                                        </Popup>
+                                    </Col>
                                 </Row>
                             </Container>
                             :

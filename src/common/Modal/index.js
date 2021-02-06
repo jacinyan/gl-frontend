@@ -57,7 +57,7 @@ const Modal = ({ title, propertyId, finished}) => {
           }
       })
   };
-
+  // 
 
 
   return (
