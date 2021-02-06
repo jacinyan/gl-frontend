@@ -56,7 +56,12 @@ const Bookings = (props) => {
         }, {
             dataField: 'end_date',
             text: 'Booking End'
-        }, {
+        },
+        {
+            dataField: 'total',
+            text: 'Sum'
+        },
+        {
             dataField: "id",
             text: "Cancel Booking",
             editable: false,

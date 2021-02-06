@@ -48,12 +48,13 @@ const Modal = ({ title, propertyId, finished}) => {
         finished()
       })
       .catch(error => {
-        const detail = error.json()
-        detail.then(messages=>{
-            messages.map((message) => {
-              toast.error(message)
-            })
-        })
+          console.log(error);
+          if (error.status === 422) {
+            toast.warning('Oops, there may be overlapping dates')
+          }
+          if (error.status === 500) {
+            toast.error('Dates can\'t be blank')
+          }
       })
   };
 
