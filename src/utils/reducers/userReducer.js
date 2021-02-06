@@ -4,13 +4,15 @@ export default function userReducer(state, action) {
 	switch (action.type) {
 		case USER_LOGIN_SUCCESS:
 			console.log(action.payload);
-			localStorage.setItem("user", action.payload.user);
+			localStorage.setItem("username", action.payload.username);
 			localStorage.setItem("jwt", action.payload.jwt);
+			localStorage.setItem("user_id", action.payload.user_id);
 			return {
 				...state,
 				isLoggedIn: true,
-				user: action.payload.user,
-				jwt: action.payload.jwt
+				username: action.payload.username,
+				jwt: action.payload.jwt,
+				user_id: action.payload.user_id
 			}
 		case USER_LOGIN_FAIL:
 			console.log("USER_LOGIN_FAIL");
@@ -18,28 +20,38 @@ export default function userReducer(state, action) {
 			return {
 				...state,
 				isLoggedIn: false,
-				error: action.payload.headers.statusText
+				error: action.payload
 			}
 		case USER_LOGOUT:
+			console.log("USER_LOGOUT");
 			localStorage.clear();
 			return {
 				...state,
 				isLoggedIn: false,
-				user: null,
+				username: null,
 				jwt: null
 			  }
 		case USER_SIGNUP_SUCCESS:
 			console.log("USER_SIGNUP_SUCCESS");
-			localStorage.setItem("user", action.payload.user);
+			console.log(action.payload);
+			localStorage.setItem("username", action.payload.username);
 			localStorage.setItem("jwt", action.payload.jwt);
+			localStorage.setItem("user_id", action.payload.user_id);
 			return {
 				...state,
 				isLoggedIn: true,
-				user: action.payload.user,
-				jwt: action.payload.jwt
+				username: action.payload.username,
+				jwt: action.payload.jwt,
+				user_id: action.payload.user_id
 			}
 		case USER_SIGNUP_FAIL:
-			return {}
+			console.log("USER_SIGNUP_FAIL");
+			console.log(action.payload)
+			return {
+				...state,
+				isLoggedIn: false,
+				error: action.payload
+			}
 		default:
 			return state
 	}
