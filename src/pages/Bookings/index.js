@@ -57,13 +57,13 @@ const Bookings = (props) => {
             dataField: 'title',
             text: 'Title',
             headerStyle: (colum, colIndex) => {
-                return { width: '10%', textAlign: 'center' };
+                return { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white' };
               }
         }, {
             dataField: 'location',
             text: 'Location',
             headerStyle: (colum, colIndex) => {
-                return { width: '20%', textAlign: 'center' };
+                return { width: '20%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  };
               }
         },
         {
@@ -71,14 +71,14 @@ const Bookings = (props) => {
             text: 'Booking Start',
             sort: true,
             headerStyle: (colum, colIndex) => {
-                return { width: '25%', textAlign: 'center' };
+                return { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  };
               }
         }, {
             dataField: 'end_date',
             text: 'Booking End',
             sort: true,
             headerStyle: (colum, colIndex) => {
-                return { width: '25%', textAlign: 'center' };
+                return { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  };
               }
         },
         {
@@ -86,7 +86,7 @@ const Bookings = (props) => {
             text: 'Sub Total',
             sort: true,
             headerStyle: (colum, colIndex) => {
-                return { width: '10%', textAlign: 'center' };
+                return { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  };
               }
         },
         {
@@ -104,7 +104,7 @@ const Bookings = (props) => {
                 );
             },
             headerStyle: (colum, colIndex) => {
-                return { width: '10%', textAlign: 'center' };
+                return { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  };
               }
         }];
 
@@ -152,13 +152,13 @@ const Bookings = (props) => {
                                         keyField='id'
                                         data={state.bookings}
                                         columns={columns}
-                                        striped={true} hover={true}
+                                        hover={true}
                                         pagination={paginationFactory()}
                                     />
                                 </Row>
                                 <Row>
                                     <Col md={{ span: 3, offset: 10 }}>
-                                        <Popup trigger={<Button variant="info">PURCHASE?</Button>}
+                                        <Popup trigger={<Button variant="dark">PURCHASE?</Button>}
                                             modal {...{ contentStyle, overlayStyle }}>
                                             <Checkout />
                                         </Popup>
