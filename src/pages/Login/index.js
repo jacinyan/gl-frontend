@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext} from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { UserContext } from '../../utils/context/userContext'
 import { Form, Row, Col, Button } from 'react-bootstrap'
 import FormContainer from '../../common/FormContainer'
 
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
@@ -13,9 +15,6 @@ const Login = () => {
     const { dispatch } = useContext(UserContext)
 
     const { register, handleSubmit, errors } = useForm({ mode: "onChange" });
-
-    // Server Errors handling
-    const [serverErrors, setServerErrors] = useState('')
 
     const onSubmit = (formData) => {
 
@@ -41,6 +40,7 @@ const Login = () => {
             })
             .then(result => {
                 console.log(result);
+                toast.success('Welcome!')
                 dispatch({
                     type: "USER_LOGIN_SUCCESS",
                     payload: {
@@ -54,9 +54,8 @@ const Login = () => {
             .catch(error => {
                 const detail = error.json()
                 detail.then(message => {
-                    console.log(message);
                     if (message.error) {
-                        setServerErrors(`${message.error}`)
+                        toast.error(`${message.error}`)
                     }
                     dispatch({
                         type: "USER_LOGIN_FAIL",
@@ -69,13 +68,6 @@ const Login = () => {
     return (
         <FormContainer>
             <h1 style={{ marginTop: "10vh", marginBottom: "5vh" }}>Log In</h1>
-            {serverErrors ?
-                <div className="alert alert-danger alert-dismissible fade show">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    {'** ' + serverErrors}
-                </div>
-                :
-                null}
             <Form onSubmit={handleSubmit(onSubmit)}>
 
                 <Form.Group controlId="email">

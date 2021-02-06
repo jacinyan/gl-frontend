@@ -5,6 +5,9 @@ import { UserContext } from '../../utils/context/userContext'
 import { Form, Button } from 'react-bootstrap'
 import FormContainer from '../../common/FormContainer'
 
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const SignUp = () => {
 
@@ -13,9 +16,6 @@ const SignUp = () => {
     const { dispatch } = useContext(UserContext)
 
     const { register, handleSubmit, errors } = useForm({ mode: "onChange" });
-
-    // Server Errors handling
-    const [serverErrors, setServerErrors] = useState('')
 
     const onSubmit = (formData) => {
 
@@ -59,13 +59,13 @@ const SignUp = () => {
                 detail.then(message => {
                     console.log(message);
                     if (message.username) {
-                        setServerErrors('This username has been taken')
+                        toast.error('This username has been taken')
                     }
                     if (message.email) {
-                        setServerErrors('This email has been taken')
+                        toast.error('This email has been taken')
                     }
                     if (message.password_confirmation) {
-                        setServerErrors('The Password and confirmation don\'t match')
+                        toast.error('The Password and confirmation don\'t match')
                     }
                     dispatch({
                         type: "USER_SIGNUP_FAIL",
@@ -82,13 +82,6 @@ const SignUp = () => {
             <h1 style={{ marginTop: "10vh", marginBottom: "5vh" }}>
                 Sign Up
             </h1>
-            {serverErrors ?
-                <div className="alert alert-danger alert-dismissible fade show">
-                    <button type="button" className="close" data-dismiss="alert">&times;</button>
-                    {'** ' + serverErrors}
-                </div>
-                :
-                null}
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group controlId="username">
                     <Form.Label>Username: </Form.Label>
