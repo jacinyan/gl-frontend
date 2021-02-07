@@ -32,12 +32,12 @@ const Bookings = (props) => {
 
     const history = useHistory()
 
-    const { state: loggedInState } = useContext(UserContext)
+    const { state: loggedInState, dispatch: expirationDispatch } = useContext(UserContext)
 
     const [state, dispatch] = useReducer(bookingReducer, initialState)
 
     useEffect(() => {
-        console.log('Bookings useEffect');
+        console.log('BookingsDidMount');
         dispatch({
             type: "BOOKINGS_LIST_REQUEST"
         });
@@ -47,47 +47,44 @@ const Bookings = (props) => {
                 dispatch({ type: 'BOOKINGS_LIST_REQUEST_SUCCESS', payload: data })
             })
             .catch((error) => {
+                console.log(error);
                 toast.warning(error.message)
                 dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error.message })
+                expirationDispatch({type: 'USER_LOGOUT', payload: error.message})
             })
-    }, [loggedInState.jwt, loggedInState.username])
+    }, [loggedInState.jwt, loggedInState.username, expirationDispatch])
 
     const columns = [
         {
             dataField: 'title',
             text: 'Title',
-            headerStyle: (colum, colIndex) => {
-                return { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white' };
-              }
+            headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white' }
+              
         }, {
             dataField: 'location',
             text: 'Location',
-            headerStyle: (colum, colIndex) => {
-                return { width: '20%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  };
-              }
+            headerStyle: { width: '20%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
+              
         },
         {
             dataField: 'start_date',
             text: 'Booking Start',
             sort: true,
-            headerStyle: (colum, colIndex) => {
-                return { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  };
-              }
+            headerStyle: { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
+              
         }, {
             dataField: 'end_date',
             text: 'Booking End',
             sort: true,
-            headerStyle: (colum, colIndex) => {
-                return { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  };
-              }
+            headerStyle: { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
+              
         },
         {
             dataField: 'total',
             text: 'Sub Total',
             sort: true,
-            headerStyle: (colum, colIndex) => {
-                return { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  };
-              }
+            headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
+              
         },
         {
             dataField: "id",
@@ -103,29 +100,9 @@ const Bookings = (props) => {
                     </button>
                 );
             },
-            headerStyle: (colum, colIndex) => {
-                return { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  };
-              }
+            headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
+              
         }];
-
-        paginationFactory({
-            page: 2,
-            sizePerPage: 5,
-            lastPageText: '>>',
-            firstPageText: '<<',
-            nextPageText: '>',
-            prePageText: '<',
-            showTotal: true,
-            alwaysShowAllBtns: true,
-            onPageChange: function (page, sizePerPage) {
-              console.log('page', page);
-              console.log('sizePerPage', sizePerPage);
-            },
-            onSizePerPageChange: function (page, sizePerPage) {
-              console.log('page', page);
-              console.log('sizePerPage', sizePerPage);
-            }
-          });   
 
     const handleDelete = (id) => {
         deleteBooking(id).then(() => {
@@ -133,6 +110,12 @@ const Bookings = (props) => {
                 type: 'BOOKING_DELETE_SUCCESS',
                 payload: id
             })
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.warning(error.message)
+            dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error.message })
+            expirationDispatch({type: 'USER_LOGOUT', payload: error.message})
         })
         history.push('/bookings')
     }
