@@ -10,12 +10,12 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import { Container, Row, Button, Col } from 'react-bootstrap'
-import Checkout from '../../Checkout'
+import Checkout from '../../common/Checkout/index'
 
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -30,11 +30,13 @@ const overlayStyle = { background: 'rgba(255,255,255,0.5)' };
 
 const Bookings = (props) => {
 
+
     const history = useHistory()
 
     const { state: loggedInState, dispatch: expirationDispatch } = useContext(UserContext)
 
     const [state, dispatch] = useReducer(bookingReducer, initialState)
+
 
     useEffect(() => {
         console.log('BookingsDidMount');
@@ -50,7 +52,7 @@ const Bookings = (props) => {
                 console.log(error);
                 toast.warning(error.message)
                 dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error.message })
-                expirationDispatch({type: 'USER_LOGOUT', payload: error.message})
+                expirationDispatch({ type: 'USER_LOGOUT', payload: error.message })
             })
     }, [loggedInState.jwt, loggedInState.username, expirationDispatch])
 
@@ -59,32 +61,32 @@ const Bookings = (props) => {
             dataField: 'title',
             text: 'Title',
             headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white' }
-              
+
         }, {
             dataField: 'location',
             text: 'Location',
-            headerStyle: { width: '20%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
-              
+            headerStyle: { width: '20%', textAlign: 'center', backgroundColor: '#215E95', color: 'white' }
+
         },
         {
             dataField: 'start_date',
             text: 'Booking Start',
             sort: true,
-            headerStyle: { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
-              
+            headerStyle: { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white' }
+
         }, {
             dataField: 'end_date',
             text: 'Booking End',
             sort: true,
-            headerStyle: { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
-              
+            headerStyle: { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white' }
+
         },
         {
             dataField: 'total',
             text: 'Sub Total',
             sort: true,
-            headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
-              
+            headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white' }
+
         },
         {
             dataField: "id",
@@ -100,8 +102,8 @@ const Bookings = (props) => {
                     </button>
                 );
             },
-            headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
-              
+            headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white' }
+
         }];
 
     const handleDelete = (id) => {
@@ -111,13 +113,18 @@ const Bookings = (props) => {
                 payload: id
             })
         })
-        .catch((error) => {
-            console.log(error);
-            toast.warning(error.message)
-            dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error.message })
-            expirationDispatch({type: 'USER_LOGOUT', payload: error.message})
-        })
+            .catch((error) => {
+                console.log(error);
+                toast.warning(error.message)
+                dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error.message })
+                expirationDispatch({ type: 'USER_LOGOUT', payload: error.message })
+            })
         history.push('/bookings')
+    }
+
+    const sum = () => {
+      const eachNum = state.bookings.map((obj) => parseInt(obj.total))
+      return eachNum.reduce((prev,curr)=> prev + curr, 0)
     }
 
     return (
@@ -139,8 +146,13 @@ const Bookings = (props) => {
                                     />
                                 </Row>
                                 <Row>
-                                    <Col md={{ span: 1, offset: 10 }}>
-                                        <Popup trigger={<Button variant="dark">PURCHASE?</Button>}
+                                    <Col md={{ span: 2, offset: 10 }}>
+                                        <h3>Total: ${sum()}</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col md={{ span: 2, offset: 10 }}>
+                                        <Popup trigger={<Button variant="dark">PAY NOW?</Button>}
                                             modal {...{ contentStyle, overlayStyle }}>
                                             <Checkout />
                                         </Popup>
