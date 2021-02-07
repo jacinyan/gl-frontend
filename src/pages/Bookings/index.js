@@ -9,7 +9,14 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
-import { Container, Row} from 'react-bootstrap'
+import { Container, Row, Button, Col } from 'react-bootstrap'
+import Checkout from '../../Checkout'
+
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const initialState = {
@@ -18,16 +25,19 @@ const initialState = {
     bookings: []
 }
 
+const contentStyle = { background: '#fff' };
+const overlayStyle = { background: 'rgba(255,255,255,0.5)' };
+
 const Bookings = (props) => {
 
     const history = useHistory()
 
-    const { state: loggedInState } = useContext(UserContext)
+    const { state: loggedInState, dispatch: expirationDispatch } = useContext(UserContext)
 
     const [state, dispatch] = useReducer(bookingReducer, initialState)
 
     useEffect(() => {
-        console.log('Bookings useEffect');
+        console.log('BookingsDidMount');
         dispatch({
             type: "BOOKINGS_LIST_REQUEST"
         });
@@ -37,44 +47,61 @@ const Bookings = (props) => {
                 dispatch({ type: 'BOOKINGS_LIST_REQUEST_SUCCESS', payload: data })
             })
             .catch((error) => {
-                console.log(error)
-                dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error })
+                console.log(error);
+                toast.warning(error.message)
+                dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error.message })
+                expirationDispatch({type: 'USER_LOGOUT', payload: error.message})
             })
-    }, [loggedInState.jwt, loggedInState.username])
+    }, [loggedInState.jwt, loggedInState.username, expirationDispatch])
 
     const columns = [
         {
             dataField: 'title',
-            text: 'Title'
+            text: 'Title',
+            headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white' }
+              
         }, {
             dataField: 'location',
-            text: 'Location'
+            text: 'Location',
+            headerStyle: { width: '20%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
+              
         },
         {
             dataField: 'start_date',
-            text: 'Booking Start'
+            text: 'Booking Start',
+            sort: true,
+            headerStyle: { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
+              
         }, {
             dataField: 'end_date',
-            text: 'Booking End'
+            text: 'Booking End',
+            sort: true,
+            headerStyle: { width: '25%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
+              
         },
         {
             dataField: 'total',
-            text: 'Sum'
+            text: 'Sub Total',
+            sort: true,
+            headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
+              
         },
         {
             dataField: "id",
-            text: "Cancel Booking",
+            text: "Cancel",
             editable: false,
             formatter: (_, row) => {
                 return (
                     <button
-                        className="btn btn-danger btn-xs"
+                        className="btn btn-primary btn-xs"
                         onClick={() => handleDelete(row.id)}
                     >
-                        Cancel
+                        Confirm?
                     </button>
                 );
             },
+            headerStyle: { width: '10%', textAlign: 'center', backgroundColor: '#215E95', color: 'white'  }
+              
         }];
 
     const handleDelete = (id) => {
@@ -83,6 +110,12 @@ const Bookings = (props) => {
                 type: 'BOOKING_DELETE_SUCCESS',
                 payload: id
             })
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.warning(error.message)
+            dispatch({ type: 'BOOKINGS_LIST_REQUEST_FAIL', payload: error.message })
+            expirationDispatch({type: 'USER_LOGOUT', payload: error.message})
         })
         history.push('/bookings')
     }
@@ -102,9 +135,17 @@ const Bookings = (props) => {
                                         keyField='id'
                                         data={state.bookings}
                                         columns={columns}
-                                        striped={true} hover={true}
-                                        pagination={ paginationFactory() } 
+                                        hover={true}
+                                        pagination={paginationFactory()}
                                     />
+                                </Row>
+                                <Row>
+                                    <Col md={{ span: 3, offset: 10 }}>
+                                        <Popup trigger={<Button variant="dark">PURCHASE?</Button>}
+                                            modal {...{ contentStyle, overlayStyle }}>
+                                            <Checkout />
+                                        </Popup>
+                                    </Col>
                                 </Row>
                             </Container>
                             :
