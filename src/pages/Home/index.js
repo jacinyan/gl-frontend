@@ -1,5 +1,4 @@
 import React from 'react'
-// import Checkout from '../../Checkout';
 import Test from '../../common/Test';
 
 
@@ -9,7 +8,6 @@ import Test from '../../common/Test';
         <header>
            <h3>Home</h3>
            <Test />
-           {/* <Checkout /> */}
         </header>
     )
 }
