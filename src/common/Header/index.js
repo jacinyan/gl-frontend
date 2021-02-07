@@ -22,14 +22,14 @@ const Header = ({ state }) => {
 
     return (
         <header>
-            <Navbar bg="dark" expand="lg" collapseOnSelect variant="dark">
+            <Navbar bg="dark" expand="lg" collapseOnSelect variant="pills">
                 <Container>
                     <LinkContainer to="/">
                         <Navbar.Brand>Gold Label</Navbar.Brand>
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        {/* <Route render={(props) => <SearchBox history={props.history}/>}/> */}
+                        <Route render={(props) => <SearchBox history={props.history}/>}/>
                         <Nav className="ml-auto">
                             {state ?
                                 <>

@@ -122,7 +122,6 @@ const Bookings = (props) => {
 
     return (
         <>
-            <h4>MyBookings</h4>
             {
                 state.isLoading ? <h2>Loading...</h2>
                     :
@@ -140,7 +139,7 @@ const Bookings = (props) => {
                                     />
                                 </Row>
                                 <Row>
-                                    <Col md={{ span: 3, offset: 10 }}>
+                                    <Col md={{ span: 1, offset: 10 }}>
                                         <Popup trigger={<Button variant="dark">PURCHASE?</Button>}
                                             modal {...{ contentStyle, overlayStyle }}>
                                             <Checkout />

@@ -34,8 +34,7 @@ const App = () => {
     <ToastContainer />
     <UserContext.Provider value={{ state, dispatch }}>
       <Header state={state.isLoggedIn}/>  
-        <main className='py-3'>
-          <Container>
+        <main>
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/search/:keyword' component={SearchResults} />
@@ -45,7 +44,6 @@ const App = () => {
               <Route path='/sign_up' render={(props) => <SignUp {...props}/>} />
               <Redirect to='/' />
             </Switch>
-          </Container>
         </main>
       <Footer />
     </UserContext.Provider>

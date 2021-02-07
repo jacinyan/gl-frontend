@@ -10,7 +10,6 @@ import Corporate from './Corporate';
 const Properties = () => {
     return (
         <>
-            <h4>Properties</h4>
             <Container style={{ paddingTop: '3vh' }}>
                 <Nav variant="tabs" as="ul">
                     <Nav.Item as="li">
