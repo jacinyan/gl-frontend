@@ -29,7 +29,8 @@ export default function userReducer(state, action) {
 				...state,
 				isLoggedIn: false,
 				username: null,
-				jwt: null
+				jwt: null,
+				user_id : null
 			  }
 		case USER_SIGNUP_SUCCESS:
 			console.log("USER_SIGNUP_SUCCESS");

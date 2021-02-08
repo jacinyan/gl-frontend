@@ -1,17 +1,21 @@
 import React from 'react'
-// import Checkout from '../../Checkout';
-import Test from '../../common/Test';
+// import Test from '../../common/Test';
+import styles from './index.module.css'
 
 
- const Home = () => {
+const Home = () => {
 
     return (
-        <header>
-           <h3>Home</h3>
-           <Test />
-           {/* <Checkout /> */}
+        <header className={styles.header}>
+            <video src="/videos/video-2.mp4" autoPlay loop muted id={styles.myVideo} />
+            <div className={styles.content}>
+                <h1> Gold Label</h1>
+                <p>Book your next event with us!</p>
+            </div>
+
         </header>
     )
 }
 
 export default Home
+

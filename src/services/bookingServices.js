@@ -13,7 +13,11 @@ export const getBookings = async () => {
         }
         throw response
     } catch (error) {
-        throw error
+        console.log(error);
+        if (error.status >= 400 && error.status < 500) {  throw new Error('Your token has expired, please log in again')}
+        if (error.status >= 500) {
+            throw new Error('Something may be wrong with our server')
+        }
     }
 }
 
@@ -48,13 +52,20 @@ export const deleteBooking = async (id) => {
     let token = "Bearer " + localStorage.getItem("jwt")
 
     try {
-        fetch(`http://localhost:3000/api/bookings/${id}`, {
+        const response = await fetch(`http://localhost:3000/api/bookings/${id}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Authorization': token
             })
         })
+        if (response.ok){
+            console.log("delete success")
+        }
+        throw response
     } catch (error) {
-        throw error
+        if (error.status >= 400 && error.status < 500) {  throw new Error('Your token has expired, please log in again')}
+        if (error.status >= 500) {
+            throw new Error('Something may be wrong with our server')
+        }
     }
 }

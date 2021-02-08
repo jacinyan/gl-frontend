@@ -21,13 +21,13 @@ const List = ({ state }) => {
                                 </Link>&nbsp;&nbsp;
                                 <Card.Body>
                                     <Link to={{ pathname: `/properties/${category()}/detail`, state: { id: propObj.id, title: propObj.title, category_id: propObj.category_id, featured_image: `${propObj.featured_image}`, description: propObj.description, rate: propObj.rate,location: propObj.location  } }} >
-                                        <Card.Title as='h4'>
+                                        <Card.Title as='h3'>
                                             <strong>
                                                 {propObj.title}
                                             </strong>
                                         </Card.Title>
                                     </Link>
-                                    <Card.Text as='h5'>
+                                    <Card.Text as='h6'>
                                         {propObj.location}
                                     </Card.Text>
                                 </Card.Body>

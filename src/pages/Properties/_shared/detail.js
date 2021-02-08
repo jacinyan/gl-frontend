@@ -57,7 +57,7 @@ const Detail = props => {
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <Popup trigger={<Button variant="success">PICK A DATE</Button>}
+                                            <Popup trigger={<Button variant="info">PICK A DATE</Button>}
                                                 modal {...{ contentStyle, overlayStyle}}>
                                                 {close => (
                                                     <>

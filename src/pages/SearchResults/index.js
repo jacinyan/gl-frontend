@@ -1,8 +1,11 @@
 
 import React,{useEffect, useReducer, useContext} from 'react'
+import { Container } from 'react-bootstrap';
 import { searchProperties } from '../../services/propertyServices';
 import { UserContext } from '../../utils/context/userContext';
 import propertyReducer from '../../utils/reducers/propertyReducer';
+
+
 
 
 const initialState = {
@@ -38,7 +41,7 @@ const SearchResults = ({match}) => {
     }, [loggedInState.jwt, keyword])
 
     return (
-        <>
+        <Container style={{ paddingTop: '3vh' }}>
         {
             state.properties.map((propObj) => {
               return (
@@ -48,7 +51,7 @@ const SearchResults = ({match}) => {
               )
             })
         }
-        </>
+        </Container>
     )
 }
 
