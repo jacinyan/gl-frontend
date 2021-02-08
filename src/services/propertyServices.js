@@ -2,7 +2,8 @@ export const getProperties = async (category_id) => {
     let token = "Bearer " + localStorage.getItem("jwt")
 
     try {
-        const response = await fetch(process.env.REACT_APP_API_ENDPOINT + 'properties', {
+        // const response = await fetch(process.env.REACT_APP_API_ENDPOINT + '/properties', {
+        const response = await fetch('http://localhost:3000/api' + '/properties', {
             headers: {
                 'Authorization': token
             }
@@ -24,7 +25,8 @@ export const searchProperties = async (keyword) => {
     let token = "Bearer " + localStorage.getItem("jwt")
 
     try {
-        const response = await fetch(process.env.REACT_APP_API_ENDPOINT + `properties?keyword=${keyword}`, {
+        // const response = await fetch(process.env.REACT_APP_API_ENDPOINT + `/properties?keyword=${keyword}`, {
+        const response = await fetch('http://localhost:3000/api' + `/properties?keyword=${keyword}`, {
             headers: {
                 'Authorization': token
             }

@@ -31,7 +31,8 @@ const Login = () => {
             body: JSON.stringify(request)
         }
 
-        fetch(process.env.REACT_APP_API_ENDPOINT + 'auth/login', requestOptions)
+        // fetch(process.env.REACT_APP_API_ENDPOINT + '/auth/login', requestOptions)
+        fetch('http://localhost:3000/api' + '/auth/login', requestOptions)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -68,7 +69,7 @@ const Login = () => {
     return (
         <FormContainer>
             <h1 style={{ marginTop: "10vh", marginBottom: "5vh" }}>Log In</h1>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={handleSubmit(onSubmit)} data-testid="loginForm">
 
                 <Form.Group controlId="email">
                     <Form.Label >Email: </Form.Label>
@@ -96,7 +97,7 @@ const Login = () => {
             </Form>
             <Row className='py-3'>
                 <Col>
-                    New Customer? <Link to='/sign_up'>Let's sign up!</Link>
+                    New Customer? <Link to='/sign_up' data-testid="sign_up">Let's sign up!</Link>
                 </Col>
             </Row>
         </FormContainer>
