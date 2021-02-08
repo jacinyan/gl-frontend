@@ -52,7 +52,7 @@ const Login = () => {
                 history.push('/')
             })
             .catch(error => {
-                const detail = error.json()
+                const detail = error.json();
                 detail.then(message => {
                     if (message.error) {
                         toast.error(`${message.error}`)
