@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import { Container } from "react-bootstrap";
 import { Switch, Redirect, Route } from 'react-router-dom';
 import Header from "./common/Header";
 import Home from "./pages/Home";
