@@ -3,7 +3,7 @@ export const getProperties = async (category_id) => {
 
     try {
         // const response = await fetch(process.env.REACT_APP_API_ENDPOINT + '/properties', {
-        const response = await fetch('http://localhost:3000/api' + '/properties', {
+        const response = await fetch(process.env.REACT_APP_API_ENDPOINT + '/properties', {
             headers: {
                 'Authorization': token
             }
@@ -26,7 +26,7 @@ export const searchProperties = async (keyword) => {
 
     try {
         // const response = await fetch(process.env.REACT_APP_API_ENDPOINT + `/properties?keyword=${keyword}`, {
-        const response = await fetch('http://localhost:3000/api' + `/properties?keyword=${keyword}`, {
+        const response = await fetch(process.env.REACT_APP_API_ENDPOINT + `/properties?keyword=${keyword}`, {
             headers: {
                 'Authorization': token
             }
