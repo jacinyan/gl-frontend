@@ -82,7 +82,7 @@ const SignUp = () => {
             <h1 style={{ marginTop: "10vh", marginBottom: "5vh" }}>
                 Sign Up
             </h1>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={handleSubmit(onSubmit)} data-testid="signUpForm">
                 <Form.Group controlId="username">
                     <Form.Label>Username: </Form.Label>
                     <Form.Control
