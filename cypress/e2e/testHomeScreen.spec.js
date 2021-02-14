@@ -1,5 +1,5 @@
 describe("test HomeScreen", () => {
-    it("should include a nav bar and buttons", () => {
+    it("should include a sub-navbar", () => {
         cy.visit("/login")
         cy.findByTestId("loginForm").submit();
         cy.get('input[name="email"]')
@@ -17,5 +17,8 @@ describe("test HomeScreen", () => {
           .click({force:true})
         
         cy.url("include", "/properties")
+
+       
+
     })
 })
